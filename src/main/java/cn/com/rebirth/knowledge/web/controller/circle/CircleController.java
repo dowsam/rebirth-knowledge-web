@@ -107,6 +107,7 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 		SysUserEntity userEntity = circleService.get(SysUserEntity.class, 255l);
 		model.addAttribute("newlyTopic", circleService.getTopic(userEntity, TOPICNUM));
 		model.addAttribute("marrowTopic", circleService.getMarrowTopic(userEntity, TOPICNUM));
+		System.out.println(circleService.getMarrowTopic(userEntity, TOPICNUM).size());
 		model.addAttribute("myTopic", circleService.getMyTopic(userEntity, TOPICNUM));
 		model.addAttribute("replyTopic", circleService.getMyReplyTopic(userEntity, TOPICNUM));
 		model.addAttribute("managingCircle", circleService.getManagingCircle(userEntity));
