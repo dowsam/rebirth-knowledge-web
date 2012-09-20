@@ -43,9 +43,14 @@ public class ResourceDetailServiceImpl implements ResourceDetailsService {
 		OpenEntityManagerInViewFilter entityManagerInViewFilter = new OpenEntityManagerInViewFilter();
 		try {
 			entityManagerInViewFilter.beginFilter();
-			SysResourceEntity moduleResource = service.getUrlResourceWithAuthorities(RebirthContainer.getInstance()
-					.get(VersionFactory.class).currentVersion().getModuleName());
-			bulidUrl(moduleResource.getChildResource(), requestMap);
+			try {
+				SysResourceEntity moduleResource = service.getUrlResourceWithAuthorities(RebirthContainer.getInstance()
+						.get(VersionFactory.class).currentVersion().getModuleName());
+				bulidUrl(moduleResource.getChildResource(), requestMap);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} finally {
 			entityManagerInViewFilter.endFilter();
 		}

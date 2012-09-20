@@ -4,9 +4,9 @@
  */
 package cn.com.rebirth.knowledge.web.service;
 
-import cn.com.rebirth.core.inject.AbstractModule;
-import cn.com.rebirth.core.inject.util.Providers;
-import cn.com.rebirth.service.middleware.client.ConsumerProxyFactory;
+import cn.com.rebirth.core.inject.*;
+import cn.com.rebirth.core.inject.util.*;
+import cn.com.rebirth.service.middleware.client.*;
 
 /**
  * The Class ServiceMiddlewareModule.
