@@ -91,6 +91,28 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            <c:forEach var="category" items="${map }" varStatus="count">
+            	<div class="qzdh">
+            		<c:if test="${count == 0 }">
+            			<h2>圈子导航</h2>
+            		</c:if>
+            		<p>${category.key.categoryName }</p>
+            		<ul>
+            			<c:forEach var="item" items="${map.value }">
+            				<li><a href="#" onclick="openCircleTopic('${item.id}');return;">${item.topicName }</a><span><a href="#" onclick="openCircle('${item.circleEntity.id}');return;">[${item.circleEntity.circleName }]</a></span></li>
+            			</c:forEach>
+            		</ul> 
+            		<ul id="ss">
+            			<c:forEach var="sec" items="${secMap[category.key].key }">
+            				<li><span>${sec.categoryName } |</span>
+            					<c:forEach var="item" items="${secMap[category.key][sec] }">
+            						<a href="#" onclick="openCircle('${item.id}')">${item.circleName }</a>
+            					</c:forEach>
+            				</li>
+            			</c:forEach>
+            		</ul>
+            	</div>
+            </c:forEach>
             <div class="qzdh">
             	<h2>圈子导航</h2>
                 <p>人文社会</p>

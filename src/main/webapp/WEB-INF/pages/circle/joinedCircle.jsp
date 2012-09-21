@@ -9,22 +9,9 @@
 <link href="${path }css/reset.css" rel="stylesheet" />
 <link href="${path }css/globel.css" rel="stylesheet" />
 <script type="text/javascript"  src="${path }js/circle/circle.js"></script>
+<script type="text/javascript"  src="${path }js/obj.js"></script>
 <script type="text/javascript">
 	var web_path='${path}';
-	$(document).ready(function() {
-	    $(".qz_nav li").each(function() {
-	        $(this).children().click(function(){
-				$(this).css("color","#000").parent().siblings().children().css("color","#fff");
-				$(this).parent().addClass("activ9").siblings().removeClass("activ9");
-			});
-	    });
-	    $(".tabt li").each(function() {
-	    	$(this).children().click(function(){
-				$(this).addClass("activ10").parent().siblings().children().removeClass("activ10");
-			});
-		}); 
-	});
-	
 </script>
 </head>
 <body>
@@ -83,11 +70,11 @@
     </div>
     <div class="nav">
         <ul>
-          <li><a href="${path }" class="active">首 页</a>|</li>
+          <li><a href="${path }">首 页</a>|</li>
           <li><a href="${path }libiary">社区阅览室</a>|</li>
           <li><a href="${path }blogMaster">博文达人</a>|</li>
           <li><a href="${path }study">我的书房</a>|</li>
-          <li><a href="${path }circle">圈 子</a>|</li>
+          <li><a href="${path }circle"  class="active">圈 子</a>|</li>
           <li><a href="${path }resourceCenter">企业资源中心</a></li>
         </ul>
       </div>
@@ -108,18 +95,17 @@
             </div>
         <div class="qz_nav">
         	<ul>
-            	<li class="activ9"><a href="#" style="color:#000">最新帖子</a>|</li>
-                <li><a href="#">我的帖子</a>|</li>
-                <li><a href="#">圈子管理</a>|</li>
+            	<li class="activ9"><a href="#" style="color:#000" onclick="changeTab(this);return;">最新帖子</a>|</li>
+                <li><a href="#" onclick="changeTab(this);return;">我的帖子</a>|</li>
             </ul>
 
         </div>
         <div class="clear"></div>
-        <div class="pa1" style="display:block">
+        <div id="newly" class="pa1" style="display:block">
         <div class="tabt">
         	<ul>
-        	<li><a id="newly" href="#" class="activ10" onclick="showAndHide('newlyTopic','marrowTopic');return;">全部</a></li>
-            <li><a id="marrow" href="#" onclick="showAndHide('marrowTopic','newlyTopic')">精华</a></li>
+        	<li><a id="newly" href="#" class="activ10" onclick="showAndHide('newlyTopic','marrowTopic',this);return;">全部</a></li>
+            <li><a id="marrow" href="#" onclick="showAndHide('marrowTopic','newlyTopic',this);return;">精华</a></li>
         </ul>
         </div>
         <table id="newlyTopic">
@@ -156,11 +142,11 @@
         </table>
         </div>
         
-        <div class="pa1" style="display:none">
+        <div id="my" class="pa1" style="display:none">
          <div class="tabt">
         	<ul>
-        	<li><a id="" href="#" class="activ10" onclick="showAndHide('myTopic','replyTopic')">我发表的</a></li>
-            <li><a href="#" onclick="showAndHide('replyTopic','myTopic')">我回复的</a></li>
+        	<li><a href="#" class="activ10" onclick="showAndHide('myTopic','replyTopic',this);return;">我发表的</a></li>
+            <li><a href="#" onclick="showAndHide('replyTopic','myTopic',this);return;">我回复的</a></li>
         	</ul>
          </div>
          <table id="myTopic">
@@ -179,19 +165,19 @@
 	        </tr>
           </c:forEach>
         </table>
-        <table id="replyTopic">
+        <table id="replyTopic" style="display:none">
         	<tr class="join_r_l_tr">
             <td>帖子标题</td>
             <td>圈子</td>
             <td>作者</td>
             <td>回复/浏览</td>
           </tr>
-          <c:forEach var="item" items="${replyTopic }">
+          <c:forEach var="it" items="${replyTopic }">
           <tr>
-	            <td class="tex"><a href="huatizhanshi.html">${item.topicName }</a></td>
-	            <td>${item.circleEntity.circleName }</td>
-	            <td>${item.creater.userName }</td>
-	            <td>${item.replyCount }/${item.visitCount }</td>
+	            <td class="tex"><a href="huatizhanshi.html">${it.topicName }</a></td>
+	            <td>${it.circleEntity.circleName }</td>
+	            <td>${it.creater.userName }</td>
+	            <td>${it.replyCount }/${item.visitCount }</td>
 	        </tr>
           </c:forEach>
         </table>
@@ -204,7 +190,7 @@ $(document).ready(function() {
 		<div class="clear"></div>
         </div>
         <div class="join_r_r">
-        	<h2><a href="quanzi.html">转到圈子首页</a></h2>
+        	<h2><a href="${path }circle">转到圈子首页</a></h2>
             <div class="ft">发帖：1</div>
             <h3>我管理的圈子</h3>
             <ul>
