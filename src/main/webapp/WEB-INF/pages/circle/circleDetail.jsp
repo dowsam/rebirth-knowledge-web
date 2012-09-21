@@ -253,6 +253,11 @@ $(document).ready(function() {
                         <td>回复时间</td>
 
                      </tr>
+                     <c:forEach>
+                     	<tr>
+                     		
+                     	</tr>
+                     </c:forEach>
 
                       <tr>
 
