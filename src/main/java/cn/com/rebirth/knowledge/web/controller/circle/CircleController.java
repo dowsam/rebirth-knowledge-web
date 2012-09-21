@@ -101,7 +101,7 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 		return "/circle/joinedCircle";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "joinedCircle")
+	@RequestMapping(method = RequestMethod.GET, value = "/joinedCircle")
 	public String joinedCircle(Model model) {
 		//TODO 得到当前登录的人员
 		SysUserEntity userEntity = circleService.get(SysUserEntity.class, 255l);
@@ -113,6 +113,14 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 		model.addAttribute("managingCircle", circleService.getManagingCircle(userEntity));
 		model.addAttribute("memberCircle", circleService.getMemberCircle(userEntity));
 		return "/circle/joinedCircle";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/libiary/{id}")
+	public String circleManage(Model model, @PathVariable Long id) {
+		CircleEntity circleEntity = circleService.get(CircleEntity.class, id);
+		List<CircleTopicEntity> list = circleService.getTopicByCircle(circleEntity);
+		model.addAttribute("topic", list);
+		return "/circle/circleLibiary";
 	}
 
 	@Autowired
