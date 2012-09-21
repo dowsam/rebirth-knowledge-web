@@ -120,7 +120,7 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 		CircleEntity circleEntity = circleService.get(CircleEntity.class, id);
 		List<CircleTopicEntity> list = circleService.getTopicByCircle(circleEntity);
 		model.addAttribute("topic", list);
-		return "/circle/circleLibiary";
+		return "/circle/circleDetail";
 	}
 
 	@Autowired
