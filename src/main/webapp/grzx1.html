@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人中心</title>
+<style>
+body { width:100%; margin:0}
+.zx_warp { width:898px; border:1px solid #DDF3F7; height:500px; margin:auto;}
+.zx_left { float:left; width:200px;height:500px; background:#F0FAFD;}
+.zx_left_tit { color:#666; font-size:16px;height:30px; line-height:30px}
+
+h4{background:#79C5E9;margin: 0;padding: 0;width: 200px; height:30px; line-height:30px;text-align:center; margin:1px 0}
+h4 a { text-decoration:none;color:#0078B6} 
+ul{ margin: 0; padding: 0; list-style: none; } 
+#outer_wrap li{line-height: 24px; position:relative} 
+.controlSymbol{ padding:0px 100px; bor1der: 1px solid #adff2f; cursor: pointer; background:url(images/down.gif) no-repeat 40px center; position:absolute; left:0; margin:0; height:25px; line-height:25px; _height:15px;_line-height:15px;} 
+.children { display:none}
+.children li{ width:200px; overflow:hidden; height:25px;}
+.children li a{ text-decoration:none; background:#C6E7F4; padding:3px 68px; text-align:center; height:25px; line-height:25px; color:#59add7; }
+
+.zx_title { color:#ccc; font-size:12px; height:30px; line-height:30px;border-bottom:1px solid #ccc}
+.zx_title h3{ color:#000; font-size:16px; width:75px; float:left; margin:0; padding:0}
+.zx_title b { color:red}
+.zx_title2 { color:#ccc; font-size:12px}
+.zx_title2 span {margin:0 5px}
+.zx_title2 span a { text-decoration:none; color:#0078B6;}
+.zx_title2 span a:hover { color:blue}
+
+.zx_right { float:left; height:700px; width:668px;padding:15px  0 0 30px;}
+.zx_right .zx_content { width:570px;margin:auto; margin-top:20px}
+.zx_right .zx_content ul {}
+.zx_right .zx_content ul li { color:#666; font-size:16px; height:30px; line-height:30px; margin-top:15px}
+.zx_right .zx_content ul li div { float:left; width:100px; text-align:right}
+.zx_right .zx_content ul li span { float:left}
+.zx_right .zx_content ul li input { width:200px; height:22px; line-height:22px; float:left}
+.zx_right .zx_content ul li a { text-decoration:none;color:#0078B6; margin-left:10px; font-size:12px}
+.zx_right .zx_content ul li a:hover { color:blue; text-decoration:underline}
+.zx_content b { margin-right:20px; color:red; font-size:12px; height:20px; line-height:20px; fl1oat:left}
+.zx_right .zx_content ul li select { float:left; margin-right:10px; width:60px; height:30px; line-height:30px; font-size:16px; text-align:center; cursor:pointer;}
+.zx_right .zx_content ul li option { height:30px; line-height:30px}
+.zx_right .zx_content .xb { width:10px; float:none}
+.zx_right .zx_content .sr { float:none}
+</style>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div class="zx_warp">
+    <div class="zx_left">
+<ul id="outer_wrap"> 
+    <li> 
+    	<h4><a href="#">个人资料</a></h4> 
+            <ul class="children" style="display:block"> 
+                <li><a href="grzx1.html">基本信息</a></li> 
+                <li><a href="grzx.html">个人标签</a></li> 
+            </ul> 
+    </li> 
+    <li> 
+        <h4><a href="#">修改头像</a></h4> 
+            <ul class="children"> 
+                <li><a href="#">个人标签</a></li> 
+                <li><a href="#">个人标签</a></li>
+                <li><a href="#">个人标签</a></li>
+                <li><a href="#">个人标签</a></li>
+            </ul> 
+    </li>
+    <li> 
+    	<h4><a href="#">企业绑定</a></h4> 
+            <ul class="children"> 
+                <li><a href="#">基本信息</a></li> 
+                <li><a href="#">个人标签</a></li> 
+            </ul> 
+    </li>
+    <li> 
+    	<h4><a href="#">社区绑定</a></h4> 
+            <ul class="children"> 
+                <li><a href="#">基本信息</a></li> 
+                <li><a href="#">个人标签</a></li> 
+            </ul> 
+    </li>
+</ul>
+<script type="text/javascript">
+var innerText = document.innerText ? 'innerText' : 'textContent'; 
+var span = document.createElement('span'); 
+span[innerText] = ''; 
+span.className = 'controlSymbol'; 
+
+function $(id){ 
+return document.getElementById(id); 
+} 
+function $_(){ 
+var args = arguments; 
+var ret = []; 
+for(var i = 0; i < args.length; i++){ 
+var temp = document.getElementsByTagName(args[i]); 
+try{ 
+ret = ret.concat(Array.prototype.slice.call(temp,0)); 
+}catch(e){ 
+for(var j = 0; j < temp.length; j++){ 
+ret.push(temp[j]); 
+} 
+} 
+} 
+return ret; 
+} 
+function addSymbol(h){ 
+var innerSpan = span.cloneNode(true); 
+h.insertBefore(innerSpan,h.firstChild); 
+} 
+function next(el){ 
+while(el.nextSibling){ 
+if(el.nextSibling.nodeType == 1){ 
+return el.nextSibling; 
+} 
+el = el.nextSibling; 
+} 
+return null; 
+} 
+var outerWrap = $('outer_wrap'); 
+var hs = $_('h4'); 
+for(var i = 0 ; i < hs.length; i++){ 
+addSymbol(hs[i]); 
+} 
+outerWrap.onclick = function(event){ 
+event = event || window.event; 
+var t = event.target || event.srcElement; 
+if(t.className == 'controlSymbol'){ 
+var sn = next(t.parentNode); 
+var snStyle = next(t.parentNode).style; 
+snStyle.display = (snStyle.display == 'block' || snStyle.display == '') ? 'none' : 'block'; 
+t[innerText] = t[innerText] == '' ? '':''; 
+} 
+} 
+</script>       
+<script type="text/javascript">
+$(document).ready(function() {
+    $("h4").each(function() {
+        $(this).children().click(function(){
+			$(this).children(".children").show();
+		});
+    });
+});
+</script>      
+</div>
+<div class="zx_right">
+    <div class="zx_title">
+     	<h3>基本信息</h3> ( <b>*</b> 为必填项 )
+    </div>
+    <div class="zx_title2">
+    	一下信息将显示在<span><a href="#">个人资料页</a></span>,方便大家了解您。
+    </div>
+    <div class="zx_content">
+    	<ul>
+        	<li><div>登录名：</div><span>123422453556@qq.com</span><a href="#">修改密码</a></li>
+            <li><div><b>*</b>昵 称：</div><input type="text" /></li>
+            <li><div>真实姓名：</div><input type="text" /></li>
+            <li><div><b>*</b>所在地：</div><select><option>福建</option><option>江西</option></select><select><option>厦门</option><option>上饶</option></select></li>
+            <li><div><b>*</b>性 别：</div><input type="radio" name="chk" class="xb"/> 男 <input type="radio" name="chk" class="xb"/> 女</li>
+            <li><div>生 日：</div><select class="sr"><option>2011</option><option>2012</option></select>年 <select class="sr"><option>10</option><option>11</option></select>月 <select class="sr"><option>22</option><option>23</option></select>日</li>
+            <li><div>联系邮箱：</div><span>123422453556@qq.com</span><a href="#">修改</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+</body>
+</html>
