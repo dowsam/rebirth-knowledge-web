@@ -1,0 +1,274 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/../includeBase.jsp"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>音乐盒编辑</title>
+<link href="${path }css/reset.css" rel="stylesheet" />
+<link href="${path }css/globel.css" rel="stylesheet" />
+<script type="text/javascript" src="${path }js/banner.js"></script>
+</head>
+<body>
+<div class="warp">
+<div class="av">
+	<div class="top">
+    <div class="right">
+          <div class="top_tool">
+            <ul>
+              <li id="tool_1"><a>装扮</a></li>
+              <li id="tool_2"><a>设置</a></li>
+              <li id="tool_3"><a>消息
+                <ul id="xinxi">
+                  <li><label><a href="http://www.baidu.com" target="_blank">查看信箱</a></label>(<span>22</span>)</li>
+                  <li><a>查看私信</a>(<span>33</span>)</li>
+                  <li><a>系统通知</a>(<span>44</span>)</li>
+                </ul>
+                </a></li>
+              <li id="tool_4"><a href="#">登录</a></li>
+              <li id="tool_5"><a href="#">退出</a></li>
+            </ul>
+          </div>
+          <div class="clear"></div>
+        </div>
+    </div>
+</div>
+    <div class="head">
+      <div class="top">
+        <div class="left">
+          <div class="logo"><a href="http://www.baidu.com"><img src="images/logo.jpg" /></a></div>
+        </div>
+        <div class="middle">
+            <div class="search">
+                <input type="text" value="输入关键字" class="focus1" />
+                <span><input type="button" value="搜索" /></span><br />
+                <div class="clear"></div>
+                <ul>
+                  <li><a href="#">新闻</a></li>
+                  <li><a>奥运</a></li>
+                  <li><a>音乐</a></li>
+                  <li><a>视频</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>交友</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>交友</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>奥运</a></li>
+                  <li><a>音乐</a></li>
+                  <li><a>视频</a></li>
+                  <li><a>美图</a></li>
+                </ul>
+              </div>
+        </div> 
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="nav">
+        <ul>
+          <li><a href="${path }">首 页</a>|</li>
+          <li><a href="${path }libiray">社区阅览室</a>|</li>
+          <li><a href="${path }blogMaster">博文达人</a>|</li>
+          <li><a href="${path }study" class="active">我的书房</a>|</li>
+          <li><a href="${path }circle">圈 子</a>|</li>
+          <li><a href="${path }resourceCenter">企业资源中心</a></li>
+        </ul>
+      </div>
+    <div class="bianji">
+        <div class="bianji_con">
+        	<div class="bianji_tit">
+            	<ul class="t0">
+                	<li style="margin-left:10px"><a><img src="images/Edit/fb.png" /></a></li>
+                    <li><a><img src="images/Edit/qx.png" /></a></li>
+                    <li><a><img src="images/Edit/bccg.png" /></a></li>
+                </ul>
+                <div class="clear"></div>
+                <ul class="t1">
+                	<li class="t1_tit"><span>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</span><input type="text" /></li>
+                    <li class="t1_quanxian"><span>阅读权限：</span><select><option>公众公开</option><option>社区公开</option><option>企业公开</option><option>好友公开</option><option>密友公开</option><option>私有</option></select><div><input type="checkbox" />原创投稿</div><div class="nav_quanxian"><select><option>编辑分类</option><option>生 活</option><option>学 习</option><option>娱 乐</option><option>其 他</option></select><ul><li><a>书柜分类</a></li></ul></div></li>
+                    <li class="t1_biaoq"><span>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签：</span><input type="text" /><div>博文摘要:<a href="#">添加文章摘要</a>(选填)</div></li>
+                </ul>
+            </div>	
+            <div class="clear"></div>
+            <div class="spms">
+            	<h2>音乐盒编辑</h2>
+                <div class="spms_con"></div>
+                <div class="spms_con2">
+                <ul>
+                	<li><a href="#"><img src="${path }images/qx.png" /></a></li>
+                    <li><a href="#"><img src="${path }images/sc.png" /></a></li>
+                    <li><a href="#" id="tj"><img src="${path }images/tj.png" /></a></li>
+                    <li><input type="text" /></li>
+                    <li><a href="#" id="yysousuo"><img src="${path }images/ss.png" /></a></li>
+                </ul>
+                <div class="spbj_tj">
+                	<h2>添加音乐<a href="#">&nbsp;</a></h2>
+                    <ul class="ta">
+                        <li><a href="#">本地上传</a></li>
+                        <li style="background:#F4E4B0"><a href="#">网络上传</a></li>
+                    </ul>
+                    <div class="clear"></div>
+                    <ul id="ta2">
+                    	<li class="spbj_tj_con" style="display:block">
+                        	<ul>
+                            	<li><span>歌曲名称:</span><input type="text" /></li>
+                                <li><span>歌手名称:</span><input type="text" /></li>
+                                <li><span>本地上传:</span><input type="text" /><a href="#"><img src="${path }images/ll1.png" /></a><a href="#"><img src="images/sc1.png" /></a></li>
+                            </ul>
+                        </li>
+                        <li class="spbj_tj_con">222</li>
+                    </ul>
+                   <script type="text/javascript">
+                   $(document).ready(function() {
+					   $(".ta li").each(function() {
+                       		$(this).children().click(function(){
+								$(this).parent().css("background","#fff").siblings().css("background","#F4E4B0");
+							});
+                       });
+					   $(".closeMe").click(function(){
+							$(".search_yyh").hide();  
+						});
+						$("#yysousuo").click(function(){
+							$(".search_yyh").show();
+						});
+              	   });
+                   </script>
+               	</div>
+					<div class="clear"></div>
+                    <div class="search_yyh">
+                    	<div class="search_tit">搜索<span>配合</span>约有<span>5</span>项结果<a href="#" class="closeMe"><img src="images/close.gif" /></a></div>
+                    	<table width="702" border="1">
+                          <tr style="height:30px; line-height:30px">
+                            <td style="width:450px">歌曲名</td>
+                            <td>歌手</td>
+                            <td>专辑</td>
+                            <td>试听</td>
+                            <td>收藏</td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:left"><a href="#"><b>配合</b>过滤器可更快地找到目标文件</a></td>
+                            <td>张三</td>
+                            <td>张三</td>
+                            <td><a href="#"><img src="${path }images/statr.png" /></a></td>
+                            <td><a href="#">+</a></td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:left"><a href="#"><b>配合</b>过滤器可更快地找到目标文件</a></td>
+                            <td>张三</td>
+                            <td>张三</td>
+                            <td><a href="#"><img src="${path }images/statr.png" /></a></td>
+                            <td><a href="#">+</a></td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:left"><a href="#"><b>配合</b>过滤器可更快地找到目标文件</a></td>
+                            <td>张三</td>
+                            <td>张三</td>
+                            <td><a href="#"><img src="${path }images/statr.png" /></a></td>
+                            <td><a href="#">+</a></td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:left"><a href="#"><b>配合</b>过滤器可更快地找到目标文件</a></td>
+                            <td>张三</td>
+                            <td>张三</td>
+                            <td><a href="#"><img src="${path }images/statr.png" /></a></td>
+                            <td><a href="#">+</a></td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:left"><a href="#"><b>配合</b>过滤器可更快地找到目标文件</a></td>
+                            <td>张三</td>
+                            <td>张三</td>
+                            <td><a href="#"><img src="${path }images/statr.png" /></a></td>
+                            <td><a href="#">+</a></td>
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="spms_con3">
+                <table>
+                  <tr>
+                    <td class="tab_tit">歌 名</td>
+                    <td style="width:150px" class="tab_tit">歌 手</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">20002年的第一场雪</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">孤独</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                   <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">寂寞沙洲冷</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">飘雪</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">当你孤单你会想起谁</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">爱错了</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">搭错车</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="checkbox" />
+                        <a href="#">你懂的</a>
+                    </td>
+                    <td>张三李四</td>
+                  </tr>
+                  <tr><td colspan="2" id="td1">111</td></tr>
+               	 </table>
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="foot">
+    	<div class="nav_btm">
+        	<ul>
+            	<li><a href="#">服务条款</a>|</li>
+                <li><a href="#">设博文馆为首页</a>|</li>
+                <li><a href="#">留言交流</a>|</li>
+                <li><a href="#">联系我们</a>|</li>
+                <li><a href="#">友情链接</a>|</li>
+                <li><a href="#">管理平台</a></li>
+            </ul>
+        </div>
+        <div class="banq">
+        	<div class="lin1">主办单位：福建省民政厅 中国电信福建公司</div>
+            <div class="lin2">[电信及增值业务经营许可证：闽ICP备11020745号]</div>
+            <div class="lin3">Copyright© 2007—2011 中国电信福建分公司 版权所有互联网违法和不良信息举报中心</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
