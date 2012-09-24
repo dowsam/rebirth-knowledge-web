@@ -39,7 +39,7 @@ public class CircleTopicControler extends AbstractBaseRestController<CircleTopic
 		});
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "new/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/new/{id}")
 	public String _new(Model model, @PathVariable Long id, HttpServletRequest request, HttpServletResponse response)
 			throws RebirthException {
 		model.addAttribute("circleId", id);
@@ -51,40 +51,33 @@ public class CircleTopicControler extends AbstractBaseRestController<CircleTopic
 			HttpServletRequest request, HttpServletResponse response) throws RebirthException {
 
 		circleService.save(entity);
-		return "/circle/circleDetail";
+		return "redirect:/circle/detail/" + entity.getCircleEntity().getId();
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "stick")
-	public String stickyTopic(@RequestParam("stick") Long[] ids) {
+	@RequestMapping(method = RequestMethod.POST, value = "/{id}/sticky")
+	public String stickyTopic(@PathVariable Long id, @RequestParam("sticky") Long[] ids) {
 		circleService.setStickyTopic(ids);
-		return "circle/circleDetail";
+		return "redirect:/circle/detail/" + id;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "marrow")
-	public String marrowTopic(@RequestParam("marrow") Long[] ids) {
+	@RequestMapping(method = RequestMethod.POST, value = "/{id}/marrow")
+	public String marrowTopic(@PathVariable Long id, @RequestParam("marrow") Long[] ids) {
 		circleService.setMarrowTopic(ids);
-		return "circle/circleDeatil";
+		return "redirect:/circle/detail/" + id;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "recycle")
-	public String recycle(@RequestParam("recycle") Long[] ids) {
+	@RequestMapping(method = RequestMethod.POST, value = "/{id}/recycle")
+	public String recycle(@PathVariable Long id, @RequestParam("recycle") Long[] ids) {
 		circleService.recycleTopic(ids);
-		return "circle/circleDetail";
+		return "redirect:/circle/detail/" + id;
 	}
 
-	@Override
-	public String delete(Model model, @PathVariable Long id, CircleTopicEntity entity, HttpServletRequest request,
-			HttpServletResponse response) throws RebirthException {
-		circleService.delete(CircleTopicEntity.class, id);
-		return "/circle/circleDeatil";
-	}
-
-	@Override
-	public String batchDelete(Model model, @RequestParam("items") Long[] items, HttpServletRequest request,
-			HttpServletResponse response) throws RebirthException {
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}/batchDelete")
+	public String batchDelete(Model model, @PathVariable Long id, @RequestParam("items") Long[] items,
+			HttpServletRequest request, HttpServletResponse response) throws RebirthException {
 		List<CircleTopicEntity> list = circleService.findByIds(CircleTopicEntity.class, Arrays.asList(items));
 		circleService.delete(list);
-		return "circle/circleDeatil";
+		return "redirect:/circle/detail/" + id;
 	}
 
 	@Autowired

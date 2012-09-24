@@ -107,7 +107,6 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 		SysUserEntity userEntity = circleService.get(SysUserEntity.class, 255l);
 		model.addAttribute("newlyTopic", circleService.getTopic(userEntity, TOPICNUM));
 		model.addAttribute("marrowTopic", circleService.getMarrowTopic(userEntity, TOPICNUM));
-		System.out.println(circleService.getMarrowTopic(userEntity, TOPICNUM).size());
 		model.addAttribute("myTopic", circleService.getMyTopic(userEntity, TOPICNUM));
 		model.addAttribute("replyTopic", circleService.getMyReplyTopic(userEntity, TOPICNUM));
 		model.addAttribute("managingCircle", circleService.getManagingCircle(userEntity));
@@ -115,12 +114,23 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 		return "/circle/joinedCircle";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/libiary/{id}")
-	public String circleManage(Model model, @PathVariable Long id) {
+	@RequestMapping(method = RequestMethod.GET, value = "/detail/{id}")
+	public String circleDetail(Model model, @PathVariable Long id) {
 		CircleEntity circleEntity = circleService.get(CircleEntity.class, id);
 		List<CircleTopicEntity> list = circleService.getTopicByCircle(circleEntity);
 		model.addAttribute("topic", list);
+		SysUserEntity userEntity = circleService.get(SysUserEntity.class, 255l);
+		model.addAttribute("user", userEntity);
+		model.addAttribute("circle", circleEntity);
 		return "/circle/circleDetail";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/manage/{id}")
+	public String circleManage(Model model, @PathVariable Long id) {
+		CircleEntity circleEntity = circleService.get(CircleEntity.class, id);
+		List<SysUserEntity> userEntities = circleService.getApprovalUser(circleEntity);
+		model.addAttribute("user", userEntities);
+		return "/circle/circleManage";
 	}
 
 	@Autowired
