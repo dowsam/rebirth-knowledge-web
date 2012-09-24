@@ -4,11 +4,7 @@
  */
 package cn.com.rebirth.knowledge.web.service;
 
-import cn.com.rebirth.commons.AbstractContainer;
-import cn.com.rebirth.commons.Container;
-import cn.com.rebirth.commons.RebirthContainer;
-import cn.com.rebirth.core.inject.InjectInitialization;
-import cn.com.rebirth.service.middleware.server.Bootstrap;
+import cn.com.rebirth.commons.*;
 
 /**
  * The Class ServiceMiddlewareServer.
@@ -22,9 +18,9 @@ public class WebServiceMiddlewareServer extends AbstractContainer implements Con
 	 */
 	@Override
 	protected void afterContainerStart(RebirthContainer container) {
-		Bootstrap.main(new String[] {});
+		/*Bootstrap.main(new String[] {});
 		container.get(InjectInitialization.class).getInjector()
-				.createChildInjector(new WebServiceMiddlewareClientModule());
+				.createChildInjector(new WebServiceMiddlewareClientModule());*/
 	}
 
 	/* (non-Javadoc)

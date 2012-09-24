@@ -47,6 +47,16 @@
 			</list>
 		</property>
 	</bean>
+	<!--  openSessionInViewInterceptor -->
+	<bean id="openSessionInViewInterceptor" class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+    	<property name="entityManagerFactory"><ref local="entityManagerFactory"/></property>        
+	</bean>
+	
+	<!--  RebirthOpenSessionInViewInterceptor 模仿Spring的openSessionInViewInterceptor 在一些特殊的地方使用-->
+	<bean id="rebirthOpenSessionInViewInterceptor" class="cn.com.rebirth.knowledge.web.interceptor.OpenEntityManagerInViewInterceptor">
+    	<property name="entityManagerFactory"><ref local="entityManagerFactory"/></property>        
+	</bean>
+
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="loadTimeWeaver">
