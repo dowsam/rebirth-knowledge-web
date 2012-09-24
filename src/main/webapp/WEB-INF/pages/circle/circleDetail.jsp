@@ -8,6 +8,47 @@
 <title>圈子文馆</title>
 <link href="${path }css/reset.css" rel="stylesheet" />
 <link href="${path }css/globel.css" rel="stylesheet" />
+<script type="text/javascript"  src="${path }js/circle/circle.js"></script>
+<script type="text/javascript">
+	var web_path='${path}';
+	$(document).ready(function(){
+		$(":checkbox").click(function(){
+			if($(this).attr("checked") == 'checked'){
+				var input1=$("<input type='hidden' value='"+$(this).val()+"' name='items'/>");
+				input1.appendTo('#deleteForm');
+				var input2=$("<input type='hidden' value='"+$(this).val()+"' name='sticky'/>");
+				input2.appendTo('#stickyForm');
+				var input3=$("<input type='hidden' value='"+$(this).val()+"' name='marrow'/>");
+				input3.appendTo('#marrowForm');
+				var input4=$("<input type='hidden' value='"+$(this).val()+"' name='recycle'/>");
+				input4.appendTo('#recycleForm');
+				alert($('#stickyForm').html());
+			}else{
+				var obj=$(this);
+				$('#deleteForm').children().each(function(i){
+					if($(this).val() == $(obj).val()){
+						$(this).remove();
+					}
+				});
+				$('#stickyForm').children().each(function(i){
+					if($(this).val() == $(obj).val()){
+						$(this).remove();
+					}
+				});
+				$('#marrowForm').children().each(function(i){
+					if($(this).val() == $(obj).val()){
+						$(this).remove();
+					}
+				});
+				$('#recycleForm').children().each(function(i){
+					if($(this).val() == $(obj).val()){
+						$(this).remove();
+					}
+				});
+			}
+		});
+	});
+</script>
 </head>
 <body>
 <div class="warp">
@@ -144,7 +185,7 @@
 
         	<div class="run1"><a href="quanzi.html">转到圈子首页</a></div>
 
-            <h2 cl1ass="a"><span><a href="qz_index.html">话题列表</a></span></h2>
+            <h2 class="a"><span><a href="qz_index.html">话题列表</a></span></h2>
 
             <h2><span><a href="">圈子文馆</a></span></h2>
 
@@ -204,7 +245,7 @@ $(document).ready(function() {
 
         	<div class="qz_m_top">
 
-                <h2><span>爱显摆圈<img src="images/top_3.png" /></span></h2>
+                <h2><span>爱显摆圈<img src="${path }images/top_3.png" /></span></h2>
 
                 <div class="qz_m_con">
 
@@ -217,20 +258,27 @@ $(document).ready(function() {
                 </div>
 
                  <div class="qs">
-
+					<form id="deleteForm" action="${path }circleTopic/${circle.id}/batchDelete" method="post">
+						<input type="hidden"  name="_method" value="DELETE"/>
+					</form>
+				<form id="stickyForm" action="${path }circleTopic/${circle.id}/sticky" method="post">
+					</form>
+					<form id="marrowForm" action="${path }circleTopic/${circle.id}/marrow" method="post">
+					</form>
+					<form id="recycleForm" action="${path }circleTopic/${circle.id}/recycle" method="post">
+					</form>
                 	<ul>
 
-                    	<li><a href="qz_index-4.html"><img src="images/027.png" /></a></li>
+                    	<li><a href="${path }circleTopic/new/${circle.id}" ><img src="${path }images/027.png" /></a></li>
 
-                        <li>&nbsp;<a href="#"><img src="images/016.png" /></a></li>
+                        <li>&nbsp;<a href="#" onclick="submitOper('deleteForm');return false;"><img src="${path }images/016.png" /></a></li>
 
-                        <li>&nbsp;<a href="#"><img src="images/028.png" /></a></li>
+                        <li>&nbsp;<a href="#" onclick="submitOper('recycleForm');retrun false;"><img src="${path }images/028.png" /></a></li>
 
-                        <li>&nbsp;<a href="#"><img src="images/018.png" /></a></li>
+                        <li>&nbsp;<a href="#" onclick="submitOper('stickyForm');return false;"><img src="${path }images/018.png" /></a></li>
 
-                        <li>&nbsp;<a href="#"><img src="images/019.png" /></a></li>
+                        <li>&nbsp;<a href="#" onclick="submitOper('marrowForm');return false;"><img src="${path }images/019.png" /></a></li>
 
-                        <div class="clear"></div>
 
                     </ul>
 
@@ -244,7 +292,7 @@ $(document).ready(function() {
 
                     <tr class="qa_tab_tr1">
 
-                        <td colspan="2">点击/回复</td>
+                        <td colspan="2">回复/点击</td>
 
                         <td>标题</td>
 
@@ -253,95 +301,25 @@ $(document).ready(function() {
                         <td>回复时间</td>
 
                      </tr>
-                     <c:forEach>
+                     <c:forEach var="item" items="${topic }">
                      	<tr>
-                     		
+                     		<c:if test="${user.id == circle.master.id }">
+                     			<td><input type="checkbox"  value="${item.id }"/></td>
+                     		</c:if>
+                     		<td style="color:#ccc"><b>${item.statisticalEntity.totalReplyCount }</b>/${item.statisticalEntity.totalVisitCount }</td>
+                     		<td><div class="td2"><a href="huatizhanshi.html" style="height:25px;">${item.topicName }
+                     		</a>
+                     			<c:if test="${item.sticky }">
+                     				<em><img src="${path }images/d.png" /></em>
+                     			</c:if>
+                     			<c:if test="${item.marrow }">
+                     				<em><img src="${path }images/j.png" /></em>
+                     			</c:if>
+                     		</div>
+                     		<td><a href="#" style=" font-size:12px;">${item.creater.userName }</a>/${item.statisticalEntity.lastReplyUser.userName }</td>
+                     		<td>${item.statisticalEntity.lastReplyDate }</td>
                      	</tr>
                      </c:forEach>
-
-                      <tr>
-
-                        <td><input type="checkbox" /></td>
-
-                        <td style="color:#ccc"><b>2338</b>/900</td>
-
-                        <td><div class="td2"><a href="huatizhanshi.html" style="height:25px;">【您正在去】请告诉您的朋友一起来听请告诉您的朋友一起来听请告诉您的朋友一起来听！</a></div><em><img src="images/j.png" /></em> <em><img src="images/d.png" /></em></td>
-
-                        <td><a href="#" style=" font-size:12px;">sfsgfg</a>/kfjerog</td>
-
-                        <td>01:25</td>
-
-                      </tr>
-
-                      <tr>
-
-                        <td><input type="checkbox" /></td>
-
-                        <td style="color:#ccc"><b>2338</b>/900</td>
-
-                        <td><div class="td2"><a href="#" style="height:25px;">【您正在去】请告诉您的朋友一起来听请告诉您的朋友一起来听请告诉您的朋友一起来听！</a></div><em><img src="images/j.png" /></em> <em><img src="images/d.png" /></em></td>
-
-                        <td><a href="#" style=" font-size:12px;">sfsgfg</a>/kfjerog</td>
-
-                        <td>01:25</td>
-
-                      </tr>
-
-                      <tr>
-
-                        <td><input type="checkbox" /></td>
-
-                        <td style="color:#ccc"><b>2338</b>/900</td>
-
-                        <td><div class="td2"><a href="#" style="height:25px;">【您正在去】请告诉您的朋友一起来听请告诉您的朋友一起来听请告诉您的朋友一起来听！</a></div><em><img src="images/j.png" /></em> <em><img src="images/d.png" /></em></td>
-
-                        <td><a href="#" style=" font-size:12px;">sfsgfg</a>/kfjerog</td>
-
-                        <td>01:25</td>
-
-                      </tr>
-
-                      <tr>
-
-                        <td><input type="checkbox" /></td>
-
-                        <td style="color:#ccc"><b>2338</b>/900</td>
-
-                        <td><div class="td2"><a href="#" style="height:25px;">【您正在去】请告诉您的朋友一起来听请告诉您的朋友一起来听请告诉您的朋友一起来听！</a></div><em><img src="images/j.png" /></em> <em><img src="images/d.png" /></em></td>
-
-                        <td><a href="#" style=" font-size:12px;">sfsgfg</a>/kfjerog</td>
-
-                        <td>01:25</td>
-
-                      </tr>
-
-                      <tr>
-
-                        <td><input type="checkbox" /></td>
-
-                        <td style="color:#ccc"><b>2338</b>/900</td>
-
-                        <td><div class="td2"><a href="#" style="height:25px;">【您正在去】请告诉您的朋友一起来听请告诉您的朋友一起来听请告诉您的朋友一起来听！</a></div><em><img src="images/j.png" /></em> <em><img src="images/d.png" /></em></td>
-
-                        <td><a href="#" style=" font-size:12px;">sfsgfg</a>/kfjerog</td>
-
-                        <td>01:25</td>
-
-                      </tr>
-
-                      <tr>
-
-                        <td><input type="checkbox" /></td>
-
-                        <td style="color:#ccc"><b>2338</b>/900</td>
-
-                        <td><div class="td2"><a href="#" style="height:25px;">【您正在去】请告诉您的朋友一起来听请告诉您的朋友一起来听请告诉您的朋友一起来听！</a></div><em><img src="images/j.png" /></em> <em><img src="images/d.png" /></em></td>
-
-                        <td><a href="#" style=" font-size:12px;">sfsgfg</a>/kfjerog</td>
-
-                        <td>01:25</td>
-
-                      </tr>
 
                     </table>
 
@@ -365,15 +343,15 @@ $(document).ready(function() {
 
         	<div class="qz_right_top">
 
-            	<div class="ph4"><img src="images/tx/04.jpg" /></div>
+            	<div class="ph4"><img src="${path }images/tx/04.jpg" /></div>
 
                 <ul>
 
                 	<li style="padding:0"><b>上官明程</b></li>
 
-                	<li style="background:url(images/xinx.png) no-repeat left center">发帖<span>1000</span></li>
+                	<li style="background:url(../images/xinx.png) no-repeat left center">发帖<span>1000</span></li>
 
-                    <li style="background:url(images/user.png) no-repeat left center">加入<span>20</span>个圈子</li>
+                    <li style="background:url(../images/user.png) no-repeat left center">加入<span>20</span>个圈子</li>
 
                 </ul>
 
@@ -415,11 +393,11 @@ $(document).ready(function() {
 
                 <ul class="bt1">
 
-                	<li><a href="#"><img src="images/3_03.png" /></a></li>
+                	<li><a href="#"><img src="${path }images/3_03.png" /></a></li>
 
-                    <li><a href="#"><img src="images/3_07.png" /></a></li>
+                    <li><a href="#"><img src="${path }images/3_07.png" /></a></li>
 
-                    <li><a href="quanzigl.html"><img src="images/3_10.png" /></a></li>
+                    <li><a href="${path }circle/manage/${circle.id}"><img src="${path }images/3_10.png" /></a></li>
 
                 </ul>
 

@@ -11,7 +11,6 @@
 <script type="text/javascript" src="${path }js/user/detailEdit.js"></script>
 <script type="text/javascript">
 	var web_path='${path}';
-	var chooseBlogUser='${toChooseBlogUser}';
 </script>
 </head>
 <body>
@@ -91,6 +90,7 @@
         <form id="userForm" action="${path }system/sysUser/update"  method="post">
         	<input type="hidden"   id="userId" name="id"  value="${id }"/>
         	<input type="hidden"  id="loginName"  name="loginName" value="${loginName }"/>
+        	<input type="hidden" id="chooseBlogUser" value="${toChooseBlogUser }"/>
         <!----------------------------------------找社区------------------------------------------>
         <div class="zsq">
              <div class="dldh_title">选择您所在的社区,让社区邻居互相了解</div>

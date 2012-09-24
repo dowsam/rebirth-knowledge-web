@@ -1,4 +1,4 @@
-function submitForm(){alert(123);
+function submitForm(){
 	$('#circleForm').submit();
 }
 
@@ -22,7 +22,34 @@ function registerHostInfo(){
 
 }
 
-function showAndHide(me,other){
-	$('#'+me).css("display","block");
-	$('#'+other).css("display","none");
+function showAndHide(me,other,obj){
+	$(obj).addClass("activ10").parent().siblings().children().removeClass("activ10");
+	$('#'+me).show();
+	$('#'+other).hide();
+}
+
+function changeTab(obj){
+	$(obj).css("color","#000").parent().siblings().children().css("color","#fff");
+	$(obj).parent().addClass("activ9").siblings().removeClass("activ9");
+	$('#newly').toggle();
+	$('#my').toggle();
+}
+
+function submitTopic(){
+	$('#topicForm').submit();
+}
+
+function openCircle(id){
+	
+}
+function openCircleTopic(id){
+	
+}
+
+function newTopic(id){
+	var url=web_path+'/circleTopic/new/'+id;
+	window.open(url);
+}
+function submitOper(jqId){
+	$('#'+jqId).submit();
 }

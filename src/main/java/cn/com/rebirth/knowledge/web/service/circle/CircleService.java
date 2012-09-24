@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005-2012-9-20 www.china-cti.com
- * Id: CircleService.java,0:03:26
+ * Copyright (c) 2005-2012-9-23 www.china-cti.com
+ * Id: CircleService.java,23:45:19
  * @author wuwei
  */
 package cn.com.rebirth.knowledge.web.service.circle;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.*;
 
 import cn.com.rebirth.knowledge.commons.entity.circle.*;
 import cn.com.rebirth.knowledge.commons.entity.circle.CircleCategoryEntity.CircleCategoryType;
+import cn.com.rebirth.knowledge.commons.entity.circle.CircleMemberApprovalEntity.ApprovalType;
 import cn.com.rebirth.knowledge.commons.entity.circle.CircleTopicEntity.CircleTopicStatu;
 import cn.com.rebirth.knowledge.commons.entity.system.*;
 import cn.com.rebirth.persistence.service.*;
@@ -30,6 +31,7 @@ import com.google.common.collect.*;
 @Transactional
 public class CircleService extends BaseService {
 
+	/** The first category. */
 	public static Long[] FIRST_CATEGORY;
 
 	/**
@@ -237,6 +239,13 @@ public class CircleService extends BaseService {
 		return list;
 	}
 
+	/**
+	 * Gets the hot topic entities.
+	 *
+	 * @param categoryEntity the category entity
+	 * @param num the num
+	 * @return the hot topic entities
+	 */
 	@SuppressWarnings("unchecked")
 	public List<CircleTopicEntity> getHotTopicEntities(CircleCategoryEntity categoryEntity, int num) {
 		Query query = getBaseDao()
@@ -249,6 +258,12 @@ public class CircleService extends BaseService {
 		return list;
 	}
 
+	/**
+	 * Gets the hot topic map.
+	 *
+	 * @param num the num
+	 * @return the hot topic map
+	 */
 	public Map<CircleCategoryEntity, List<CircleTopicEntity>> getHotTopicMap(int num) {
 		Map<CircleCategoryEntity, List<CircleTopicEntity>> map = Maps.newHashMap();
 		List<CircleCategoryEntity> categoryEntities = find(
@@ -261,6 +276,12 @@ public class CircleService extends BaseService {
 		return map;
 	}
 
+	/**
+	 * Gets the hot circle.
+	 *
+	 * @param num the num
+	 * @return the hot circle
+	 */
 	@SuppressWarnings("unchecked")
 	public Map<CircleCategoryEntity, Map<CircleCategoryEntity, List<CircleEntity>>> getHotCircle(int num) {
 		Map<CircleCategoryEntity, Map<CircleCategoryEntity, List<CircleEntity>>> map = Maps.newHashMap();
@@ -285,25 +306,126 @@ public class CircleService extends BaseService {
 		return map;
 	}
 
+	/**
+	 * Gets the topic by circle.
+	 *
+	 * @param circleEntity the circle entity
+	 * @return the topic by circle
+	 */
 	public List<CircleTopicEntity> getTopicByCircle(CircleEntity circleEntity) {
 		List<CircleTopicEntity> list = find(
-				"from CircleTopciEntity t where t.circleEntity=? order by t.sticky,t.statisticalEntity.lastReplyDate desc",
+				"from CircleTopicEntity t where t.circleEntity=? order by t.sticky desc,t.statisticalEntity.lastReplyDate desc",
 				circleEntity);
 		return list;
 	}
 
+	/**
+	 * Sets the sticky topic.
+	 *
+	 * @param ids the ids
+	 * @return the int
+	 */
 	public int setStickyTopic(Long[] ids) {
-		return batchExecute("update CircleTopicEntity t set t.sticky=? where t.id in ?",
-				new Object[] { true, Arrays.asList(ids) });
+		Query query = getBaseDao().getEm().createQuery(
+				"update CircleTopicEntity t set t.sticky=true where t.id in (:idList)");
+		List<Long> idList = Lists.newArrayList(ids);
+		query.setParameter("idList", idList);
+		return query.executeUpdate();
 	}
 
+	/**
+	 * Sets the marrow topic.
+	 *
+	 * @param ids the ids
+	 * @return the int
+	 */
 	public int setMarrowTopic(Long[] ids) {
-		return batchExecute("update CircleTopicEntity t set t.marrow=? where t.id in ?",
-				new Object[] { true, Arrays.asList(ids) });
+		Query query = getBaseDao().getEm().createQuery(
+				"update CircleTopicEntity t set t.marrow=true where t.id in (:idList)");
+		query.setParameter("idList", Lists.newArrayList(ids));
+		return query.executeUpdate();
 	}
 
+	/**
+	 * Recycle topic.
+	 *
+	 * @param ids the ids
+	 * @return the int
+	 */
 	public int recycleTopic(Long[] ids) {
-		return batchExecute("update CircleTopicEntity t set t.statu=? where t.id in ?", new Object[] {
-				CircleTopicStatu.DELETE, Arrays.asList(ids) });
+		Query query = getBaseDao().getEm().createQuery(
+				"update CircleTopicEntity t set t.statu=:statu where t.id in (:idList)");
+		query.setParameter("statu", CircleTopicStatu.DELETE);
+		query.setParameter("idList", Lists.newArrayList(ids));
+		return query.executeUpdate();
+	}
+
+	//加入圈子
+	/**
+	 * Join2 circle.
+	 *
+	 * @param userEntity the user entity
+	 * @param circleEntity the circle entity
+	 */
+	public void join2Circle(SysUserEntity userEntity, CircleEntity circleEntity) {
+		List<SysUserEntity> member = circleEntity.getMemberUser();
+		member.add(userEntity);
+		circleEntity.setMemberUser(member);
+		save(circleEntity);
+	}
+
+	//加入副圈主
+	/**
+	 * Join2 secondary master.
+	 *
+	 * @param userEntity the user entity
+	 * @param circleEntity the circle entity
+	 */
+	public void join2SecondaryMaster(SysUserEntity userEntity, CircleEntity circleEntity) {
+		//取消普通成员
+		List<SysUserEntity> member = circleEntity.getMemberUser();
+		member.remove(userEntity);
+		circleEntity.setMemberUser(member);
+		List<SysUserEntity> secondary = circleEntity.getSecondaryMaster();
+		if (secondary.size() > 0) {
+			secondary.add(userEntity);
+		}
+		circleEntity.setSecondaryMaster(secondary);
+		save(circleEntity);
+	}
+
+	/**
+	 * Gets the approval topic.
+	 * 获得需要审核的话题
+	 * @param circleEntity the circle entity
+	 * @return the approval topic
+	 */
+	public List<CircleTopicEntity> getApprovalTopic(CircleEntity circleEntity) {
+		return find("from CircleTopic t where t.circleEntity=? and t.statu=?", circleEntity, CircleTopicStatu.UNCHECKED);
+	}
+
+	/**
+	 * Gets the approval user.
+	 * 获得需审核的成员
+	 * @param circleEntity the circle entity
+	 * @return the approval user
+	 */
+	public List<SysUserEntity> getApprovalUser(CircleEntity circleEntity) {
+		return find(
+				"select t.circleEntity from CircleMemberApprovalEntity t where t.approvalType=? and t.circleEntity=?",
+				ApprovalType.NEW_MEMBER_APPROVAL, circleEntity);
+
+	}
+
+	public List<Map<String, Object>> getInfoList(CircleEntity circleEntity) {
+		Query query = getBaseDao()
+				.getEm()
+				.createQuery(
+						"select new map(t.createDate as date,count(*) as topics,count(t.topicReplyEntities) as replies,count(t.circleTopicVisitEntities) ) from CircleTopicEntity t.group by t.createDate having t.circleEntity=? ");
+		return query.getResultList();
+	}
+
+	public List<E> getMemberInfo(CircleEntity circleEntity){
+		Query query = getBaseDao().getEm().createQuery("select t.from CircleTopicEntity t where t.circleEntity=? and t.")
 	}
 }
