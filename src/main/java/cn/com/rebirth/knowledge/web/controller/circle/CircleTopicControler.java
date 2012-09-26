@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import cn.com.rebirth.commons.exception.*;
 import cn.com.rebirth.core.web.controller.*;
 import cn.com.rebirth.knowledge.commons.entity.circle.*;
+import cn.com.rebirth.knowledge.commons.entity.system.*;
 import cn.com.rebirth.knowledge.web.service.circle.*;
 
 @Controller
@@ -44,6 +45,28 @@ public class CircleTopicControler extends AbstractBaseRestController<CircleTopic
 			throws RebirthException {
 		model.addAttribute("circleId", id);
 		return "/circle/topic/createTopic";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/show/{id}")
+	public String show(Model model, @PathVariable Long id, HttpServletRequest request, HttpServletResponse response)
+			throws RebirthException {
+		CircleTopicEntity topicEntity = circleService.get(CircleTopicEntity.class, id);
+		model.addAttribute("topic", topicEntity);
+		return "/circle/topic/topicShow";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/reply/{id}")
+	public String replyTopic(Model model, @PathVariable Long id, @RequestParam("newPost") String reply) {
+		//TODO 获取登陆的USER
+		SysUserEntity userEntity = circleService.get(SysUserEntity.class, 255l);
+		CircleTopicEntity circleTopicEntity = circleService.get(CircleTopicEntity.class, id);
+		CircleTopicReplyEntity replyEntity = new CircleTopicReplyEntity();
+		replyEntity.setCircleTopicEntity(circleTopicEntity);
+		replyEntity.setReplyContent(reply.getBytes());
+		replyEntity.setReplyDate(new Date());
+		replyEntity.setReplyUser(userEntity);
+		circleService.save(replyEntity);
+		return "redirect:/circleTopic/show/" + id;
 	}
 
 	@Override

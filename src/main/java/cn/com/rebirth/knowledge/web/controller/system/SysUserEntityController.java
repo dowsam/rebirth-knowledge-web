@@ -125,13 +125,14 @@ public class SysUserEntityController extends AbstractBaseRestController<SysUserE
 	public void addTag(@PathVariable String tagName, HttpServletResponse response) {
 		List<TagEntity> tagEntities = tagService.find("from TagEntity t where t.tagName=?", tagName);
 		TagEntity tagEntity = null;
-		if (null == tagEntities || tagEntities.size() == 0) {
+		if (null == tagEntities || tagEntities.size() < 1) {
 			tagEntity = new TagEntity();
 			tagEntity.setCreateDate(DateUtils.getToday());
 			tagEntity.setTagName(tagName);
 			tagService.save(tagEntity);
 		}
-		ResponseTypeOutputUtils.renderJson(response, tagService.toJsonEntity(tagEntity));
+		ResponseTypeOutputUtils.renderJson(response,
+				tagService.toJsonEntity(null == tagEntity ? tagEntities.get(0) : tagEntity));
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/interesting/{id}")

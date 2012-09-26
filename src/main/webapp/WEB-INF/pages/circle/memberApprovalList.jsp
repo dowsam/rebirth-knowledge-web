@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/../includeBase.jsp"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>成员列表</title>
+<title>圈子管理</title>
+<link href="${path }css/reset.css" rel="stylesheet" />
+<link href="${path }css/globel.css" rel="stylesheet" />
+<script type="text/javascript">
+	var web_path='${path}';
+</script>
 </head>
 <body>
-<div class="c" style="display:none">
 
                 <table>
 
@@ -191,6 +196,5 @@
 
                 <div class="tiquan"><span>批量操作:</span><a href="#"><img src="${path }images/022.png" /></a></div>
 
-                </div>
 </body>
 </html>
