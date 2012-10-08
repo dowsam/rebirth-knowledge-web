@@ -7,8 +7,10 @@
 <title>我的书房</title>
 <link href="${path }css/reset.css" rel="stylesheet" />
 <link href="${path }css/globel.css" rel="stylesheet" />
+<link href="${path }css/pageCss.css" rel="stylesheet" />
 <script type="text/javascript" src="${path }js/jquery.form.js"></script>
 <script type="text/javascript"  src="${path }js/study/study.js"></script>
+<script type="text/javascript"  src="${path }js/study/shortMsg/shortMsg.js"></script>
 <script type="text/javascript">
 	var web_path='${path}';
 </script>
@@ -303,158 +305,12 @@
           </div>
           <div class="clear"></div>
       </div>
-      <div class="b" style=" height:538px;">
-      	<div class="txl">
-        	<ul>
-            	<li id="activ14">收件箱</li>
-                <li>发件箱</li>
-                <li>通讯录</li>
-                <li>写短信</li>
-            </ul>
-        </div>
-        <div class="d" style="display:block">
-        	<div class="d_tit">
-            	<div style="float:left; margin-left:10px;"><input type="checkbox" /> 全选</div>
-                <ul>
-                	<li><a href="#"><img src="images/027.jpg" /></a></li>
-                    <li><a href="#"><img src="images/028.jpg" /></a></li>
-                    <li><a href="#"><img src="images/029.jpg" /></a></li>
-                </ul>
-                <div class="total1">共有<b>2</b>条短信,其中未读<b>0</b>条</div>
-            </div>
-            <div class="clear"></div>
-            <table>
-              <tr id="d_tr">
-                <td style="width:5%">选择</td>
-                <td style="width:10%">状态</td>
-                <td>收件人</td>
-                <td>标题</td>
-                <td>时间</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td><a href="#" style=" background:url(images/mail0f6c3e.png) no-repeat -48px top; padding:0 8px"></a></td>
-                <td>系统管理员</td>
-                <td>社区用户调查问卷</td>
-                <td>2012-09-11 20:15:10</td>
-              </tr>
-              <tr id="activ12">
-                <td><input type="checkbox" /></td>
-                <td><a href="#" style=" background:url(images/mail0f6c3e.png) no-repeat -48px -17px; padding:0 8px"></a></td>
-                <td>系统管理员</td>
-                <td>社区用户调查问卷</td>
-                <td>2012-09-11 20:15:10</td>
-              </tr>
-            </table>
-        </div>
-        <div class="d">
-        	<div class="d_tit">
-            	<div style="float:left; margin-left:10px"><input type="checkbox" /> 全选</div>
-                <ul>
-                	<li><a href="#"><img src="images/027.jpg" /></a></li>
-                    <li><a href="#"><img src="images/029.jpg" /></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="d">
-        <div class="d_tit">
-            	<div style="float:left; margin-left:10px"><input type="checkbox" /> 全选</div>
-                <ul>
-                	<li><a href="#"><img src="images/030.jpg" /></a></li>
-                    <li><a href="#"><img src="images/031.jpg" /></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        	<table>
-              <tr id="d_tr">
-                <td style="width:10%">选择</td>
-                <td style="width:15%">昵称</td>
-                <td style="width:50%">类别</td>
-                <td>时间</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>张三李四</td>
-                <td>我的关注</td>
-                <td>2012-09-11 20:15:10</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>张三李四</td>
-                <td>我的关注</td>
-                <td>2012-09-11 20:15:10</td>
-              </tr>
-            </table>
-        </div>
-        <div class="d">
-        	<div class="cont">
-                <table>
-                  <tr>
-                    <td style="width:12%"><span>收信人：</span></td>
-                    <td><input type="text" />&nbsp;请输入收信人昵称或从<a href="#" style="text-decoration:underline">通讯录中选择</a></td>
-                  </tr>
-                  <tr>
-                    <td><span>标 &nbsp;&nbsp;题：</span></td>
-                    <td><input type="text" style="width:350px"/></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" style=" text-align:left"><div class="cont_btm"><textarea></textarea></div>
-                    <div class="cont_btm_r">
-                    	<h2><span id="activ13">基本表情</span><span>洋葱头</span></h2>
-                        <div class="clear"></div>
-                        <ul style="display:block">
-                        	<li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                        </ul>
-                        <ul>
-                        	<li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                            <li><a href="#" title="坏笑/huaix"><img src="images/Edit/01.gif" /></a></li>
-                        </ul>
-                        
-                    </div>
-                    <div class="clear"></div>
-                        <div class="cont_botton"><a href="#"><img src="images/034.jpg" /></a></div>
-                    </td>
-                  </tr>
-                </table>
-
-            </div>
-        </div>
+      <div id="shortMsg" class="b" style=" height:538px;"> </div>
+      <div id="myAttention" class="c">我关注的人
       </div>
-      <div class="c">我关注的人</div>
-      <div class="c">我的粉丝</div>
+      <div id="myFans" class="c">我的粉丝</div>
       <div id="myTag" class="c"></div>
-      <div class="c">
+      <div id="myFriend" class="c">
       	<div class="c3">
             <div class="tx2">我有一个密友(<b>添加</b>新的密友,<b>删除</b>现在的密友)</div>
             <h2>共有5个好友</h2>

@@ -8,6 +8,10 @@
 <title>圈子</title>
 <link href="${path }css/reset.css" rel="stylesheet" />
 <link href="${path }css/globel.css" rel="stylesheet" />
+<script type="text/javascript"  src="${path }js/circle/circle.js"></script>
+<script type="text/javascript">
+	var web_path='${path}';
+</script>
 </head>
 <body>
 <div class="warp">
@@ -36,7 +40,7 @@
     <div class="head">
       <div class="top">
         <div class="left">
-          <div class="logo"><a hr1ef="http://www.baidu.com"><img src="images/logo.jpg" /></a></div>
+          <div class="logo"><a href="http://www.baidu.com"><img src="images/logo.jpg" /></a></div>
         </div>
         <div class="middle">
             <div class="search">
@@ -91,110 +95,29 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <c:forEach var="category" items="${map }" varStatus="count">
+            <c:forEach var="category" items="${map }" varStatus="status">
             	<div class="qzdh">
-            		<c:if test="${count == 0 }">
+            		<c:if test="${status.index  eq 0 }">
             			<h2>圈子导航</h2>
             		</c:if>
             		<p>${category.key.categoryName }</p>
             		<ul>
-            			<c:forEach var="item" items="${map.value }">
-            				<li><a href="#" onclick="openCircleTopic('${item.id}');return;">${item.topicName }</a><span><a href="#" onclick="openCircle('${item.circleEntity.id}');return;">[${item.circleEntity.circleName }]</a></span></li>
+            			<c:forEach var="item" items="${category.value }">
+            				<li><a href="#" onclick="openCircleTopic('${item.id}');return;">${item.topicName }</a><span><a href="#" onclick="openCircle('${item.circleEntity.id}');">[${item.circleEntity.circleName }]</a></span></li>
             			</c:forEach>
             		</ul> 
             		<ul id="ss">
-            			<c:forEach var="sec" items="${secMap[category.key].key }">
-            				<li><span>${sec.categoryName } |</span>
-            					<c:forEach var="item" items="${secMap[category.key][sec] }">
+            			<c:forEach var="sec" items="${secMap[category.key] }">
+            				<li><span>${sec.key.categoryName } |</span>
+            					<c:forEach var="item" items="${secMap[category.key][sec.key] }">
             						<a href="#" onclick="openCircle('${item.id}')">${item.circleName }</a>
             					</c:forEach>
             				</li>
             			</c:forEach>
             		</ul>
+            		<div class="clear"></div>
             	</div>
             </c:forEach>
-            <div class="qzdh">
-            	<h2>圈子导航</h2>
-                <p>人文社会</p>
-                <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                </ul>
-                <ul id="ss">
-                	<li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-            <div class="qzdh">
-                <p>娱乐</p>
-                <div class="clear"></div>
-                <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                </ul>
-                <ul id="ss">
-                	<li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-            <div class="qzdh">
-                <p>女人</p>
-                <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                </ul>
-                <ul id="ss">
-                	<li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-            <div class="qzdh">
-                <p>生活</p>
-                <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span><a href="#">[实时杂谈]</a></span></li>
-                </ul>
-                <ul id="ss">
-                	<li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                    <li><span>实 时 |</span><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a><a href="#">综合国际</a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
         </div>
         <div class="quanzi_right">
         	<div class="thz">
@@ -234,50 +157,33 @@
             <div class="quznzi_btm">
                 <h2>24小时热帖排行榜</h2>
                 <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a></li>
+                	<c:forEach var="item" items="${hotTopic24 }">
+                		<li><a href="#" onclick="openCircleTopic('${item.id}')">${item.topicName }</a></li>
+                	</c:forEach>
                 </ul>
             </div>
             <div class="zt">
                 <h2>新增主帖排行榜</h2>
                 <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
+                	<c:forEach var="item" items="${weekNewlyCircle }">
+                		<li><a href="#" onclick="openCircle('${item.id}')">${item.circleName }</a></li>
+                	</c:forEach>
                 </ul>
             </div>
             <div class="ht">
                 <h2>新增回帖排行榜</h2>
                 <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
+                	<c:forEach var="item" items="${weekReplyTopic }">
+                		<li><a href="#"  onclick="openCircleTopic('${item.id}')">${item.topicName }</a></li>
+                	</c:forEach>
                 </ul>
             </div>
              <div class="fwl">
                 <h2>圈子总访问量排行</h2>
                 <ul>
-                	<li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
-                    <li><a href="huatizhanshi.html">中国两大陆站旅进驻南海</a><span>100</span></li>
+                	<c:forEach var="item" items="${totalCircle }">
+                		<li><a href="#" onclick="openCircle('${item.id}')">${item.circleName }</a></li>
+                	</c:forEach>
                 </ul>
             </div>
             <div class="clear"></div>
