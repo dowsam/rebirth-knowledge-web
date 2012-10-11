@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005-2012-9-25 www.china-cti.com
- * Id: CircleService.java,11:45:24
+ * Copyright (c) 2005-2012-10-10 www.china-cti.com
+ * Id: CircleService.java,17:34:28
  * @author wuwei
  */
 package cn.com.rebirth.knowledge.web.service.circle;
@@ -12,11 +12,14 @@ import javax.persistence.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
+import cn.com.rebirth.commons.*;
 import cn.com.rebirth.knowledge.commons.entity.circle.*;
 import cn.com.rebirth.knowledge.commons.entity.circle.CircleCategoryEntity.CircleCategoryType;
 import cn.com.rebirth.knowledge.commons.entity.circle.CircleMemberApprovalEntity.ApprovalType;
+import cn.com.rebirth.knowledge.commons.entity.circle.CircleMemberInfoEntity.MemberType;
 import cn.com.rebirth.knowledge.commons.entity.circle.CircleTopicEntity.CircleTopicStatu;
 import cn.com.rebirth.knowledge.commons.entity.system.*;
+import cn.com.rebirth.knowledge.commons.pojo.circle.*;
 import cn.com.rebirth.persistence.service.*;
 
 import com.google.common.collect.*;
@@ -91,35 +94,14 @@ public class CircleService extends BaseService {
 	 * @param num the num
 	 * @return the topic
 	 */
-	@SuppressWarnings("unchecked")
 	public List<CircleTopicEntity> getTopic(SysUserEntity userEntity, int num) {
 		List<CircleTopicEntity> list = Lists.newArrayList();
 		Query memberquery = getBaseDao()
 				.getEm()
 				.createQuery(
-						"from CircleTopicEntity t where t.circleEntity in (select  c from CircleEntity c left join c.memberUser u where u=?) order by t.createDate desc");
+						"from CircleTopicEntity t where t.circleEntity in (select  c.circleEntity from CircleMemberInfoEntity c  where c.sysUserEntity=?) order by t.createDate desc");
 		memberquery.setParameter(1, userEntity);
 		memberquery.setMaxResults(num);
-		Query secondaryMasterQuery = getBaseDao()
-				.getEm()
-				.createQuery(
-						"from CircleTopicEntity t where t.circleEntity in (select  c from CircleEntity c left join c.secondaryMaster m where m=?) order by t.createDate desc");
-		secondaryMasterQuery.setParameter(1, userEntity);
-		secondaryMasterQuery.setMaxResults(num);
-		Query masterQuery = getBaseDao().getEm().createQuery(
-				"from CircleTopicEntity t where t.circleEntity in (from CircleEntity c where c.master=?)");
-		masterQuery.setParameter(1, userEntity);
-		list.addAll(memberquery.getResultList());
-		list.addAll(secondaryMasterQuery.getResultList());
-		list.addAll(masterQuery.getResultList());
-		Collections.sort(list, new Comparator<CircleTopicEntity>() {
-
-			@Override
-			public int compare(CircleTopicEntity o1, CircleTopicEntity o2) {
-				// TODO Auto-generated method stub
-				return (int) (o1.getCreateDate().getTime() - o2.getCreateDate().getTime());
-			}
-		});
 		return list.size() > num ? list.subList(0, num) : list;
 	}
 
@@ -136,34 +118,11 @@ public class CircleService extends BaseService {
 		Query memberquery = getBaseDao()
 				.getEm()
 				.createQuery(
-						"from CircleTopicEntity t where t.circleEntity in (select  c from CircleEntity c left join c.memberUser u where u=?) and t.marrow=? order by t.createDate desc");
+						"from CircleTopicEntity t where t.circleEntity in (select  c.circleEntity from CircleMemberInfoEntity c  where c.sysUserEntity=?) and t.marrow=? order by t.createDate desc");
 		memberquery.setParameter(1, userEntity);
 		memberquery.setParameter(2, true);
 		memberquery.setMaxResults(num);
-		Query secondaryMasterQuery = getBaseDao()
-				.getEm()
-				.createQuery(
-						"from CircleTopicEntity t where t.circleEntity in (select  c from CircleEntity c left join c.secondaryMaster m where m=?)  and t.marrow=? order by t.createDate desc");
-		secondaryMasterQuery.setParameter(1, userEntity);
-		secondaryMasterQuery.setParameter(2, true);
-		secondaryMasterQuery.setMaxResults(num);
-		Query masterQuery = getBaseDao()
-				.getEm()
-				.createQuery(
-						"from CircleTopicEntity t where t.circleEntity in (select c from CircleEntity c where c.master=?) and t.marrow=?");
-		masterQuery.setParameter(1, userEntity);
-		masterQuery.setParameter(2, true);
 		list.addAll(memberquery.getResultList());
-		list.addAll(secondaryMasterQuery.getResultList());
-		list.addAll(masterQuery.getResultList());
-		Collections.sort(list, new Comparator<CircleTopicEntity>() {
-
-			@Override
-			public int compare(CircleTopicEntity o1, CircleTopicEntity o2) {
-				// TODO Auto-generated method stub
-				return (int) (o1.getCreateDate().getTime() - o2.getCreateDate().getTime());
-			}
-		});
 		return list.size() > num ? list.subList(0, num) : list;
 	}
 
@@ -214,13 +173,14 @@ public class CircleService extends BaseService {
 	@SuppressWarnings("unchecked")
 	public List<CircleEntity> getManagingCircle(SysUserEntity userEntity) {
 		List<CircleEntity> list = Lists.newArrayList();
-		Query query = getBaseDao().getEm().createQuery("from CircleEntity t where t.master=?");
+		Query query = getBaseDao()
+				.getEm()
+				.createQuery(
+						"select  c.circleEntity from CircleMemberInfoEntity c  where c.sysUserEntity=? and (c.memberType=? or c.memberType=?)");
 		query.setParameter(1, userEntity);
+		query.setParameter(2, MemberType.MASTER);
+		query.setParameter(3, MemberType.SECONDARYMASTER);
 		list = query.getResultList();
-		Query secondaryQuery = getBaseDao().getEm().createQuery(
-				"from CircleEntity t left join t.secondaryMaster s where s=?");
-		secondaryQuery.setParameter(1, userEntity);
-		list.addAll(secondaryQuery.getResultList());
 		return list;
 	}
 
@@ -233,8 +193,10 @@ public class CircleService extends BaseService {
 	@SuppressWarnings("unchecked")
 	public List<CircleEntity> getMemberCircle(SysUserEntity userEntity) {
 		List<CircleEntity> list = Lists.newArrayList();
-		Query query = getBaseDao().getEm().createQuery("from CircleEntity t left join t.memberUser s where s=?");
+		Query query = getBaseDao().getEm().createQuery(
+				"select c.circleEntity from CircleMemberInfoEntity c where c.sysUserEntity=? and c.memberType=?");
 		query.setParameter(1, userEntity);
+		query.setParameter(2, MemberType.MEMBER);
 		list = query.getResultList();
 		return list;
 	}
@@ -243,15 +205,19 @@ public class CircleService extends BaseService {
 	 * Gets the hot topic entities.
 	 *
 	 * @param categoryEntity the category entity
+	 * @param isSecond the is second
 	 * @param num the num
 	 * @return the hot topic entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<CircleTopicEntity> getHotTopicEntities(CircleCategoryEntity categoryEntity, int num) {
-		Query query = getBaseDao()
-				.getEm()
-				.createQuery(
-						"select r.topicEntity from CircleTopicStatisticalEntity r where r.topicEntity.circleEntity.category=? order by r.weekReplyCount desc");
+	public List<CircleTopicEntity> getHotTopicEntities(CircleCategoryEntity categoryEntity, boolean isSecond, int num) {
+		String hql = "select r.topicEntity from CircleTopicStatisticalEntity r where r.topicEntity.circleEntity.";
+		if (!isSecond) {
+			hql += "category=? order by r.dayReplyCount desc";
+		} else {
+			hql += "secCategory=? order by r.dayReplyCount desc";
+		}
+		Query query = getBaseDao().getEm().createQuery(hql);
 		query.setParameter(1, categoryEntity);
 		query.setMaxResults(num);
 		List<CircleTopicEntity> list = query.getResultList();
@@ -264,49 +230,38 @@ public class CircleService extends BaseService {
 	 * @param num the num
 	 * @return the hot topic map
 	 */
-	public Map<CircleCategoryEntity, List<CircleTopicEntity>> getHotTopicMap(int num) {
-		Map<CircleCategoryEntity, List<CircleTopicEntity>> map = Maps.newHashMap();
+	public List<CategoryAndTopic> getHotTopic(int num) {
+		List<CategoryAndTopic> list = Lists.newArrayList();
 		List<CircleCategoryEntity> categoryEntities = getFirstCategory();
 		List<CircleTopicEntity> typed;
 		for (CircleCategoryEntity circleCategoryEntity : categoryEntities) {
-			typed = getHotTopicEntities(circleCategoryEntity, num);
-			map.put(circleCategoryEntity, typed);
-		}
-		return map;
-	}
-
-	/**
-	 * Gets the hot circle.
-	 *
-	 * @param num the num
-	 * @return the hot circle
-	 */
-	@SuppressWarnings("unchecked")
-	public Map<CircleCategoryEntity, Map<CircleCategoryEntity, List<CircleEntity>>> getHotCircle(int num) {
-		Map<CircleCategoryEntity, Map<CircleCategoryEntity, List<CircleEntity>>> map = Maps.newHashMap();
-		List<CircleCategoryEntity> first = getFirstCategory();
-		List<CircleEntity> typed;
-		for (CircleCategoryEntity category : first) {
-			Map<CircleCategoryEntity, List<CircleEntity>> secMap = Maps.newHashMap();
-			//遍历一级类别下的二级类别
-			for (CircleCategoryEntity sec : category.getSecondCategory()) {
-				//今天该二级类别最热门的圈子
-				Query query = getBaseDao()
-						.getEm()
-						.createQuery(
-								"select t.circleEntity from CircleStatisticalEntity t where  t.circleEntity.secCategory = ? order by t.dayReplyCount desc");
-				query.setParameter(1, sec);
-				query.setMaxResults(num);
-				typed = query.getResultList();
-				if (typed.size() > 0) {
-					secMap.put(sec, typed);
+			typed = getHotTopicEntities(circleCategoryEntity, false, num);
+			CategoryAndTopic categoryCircleShow = new CategoryAndTopic();
+			categoryCircleShow.setTopics(typed);
+			categoryCircleShow.setCircleCategory(circleCategoryEntity);
+			List<CategoryAndCircle> secondShow = Lists.newArrayList();
+			if (typed.size() > 0) {
+				//子类别
+				List<CircleCategoryEntity> secondaryCategory = circleCategoryEntity.getSecondCategory();
+				for (CircleCategoryEntity secondaryCircleCategory : secondaryCategory) {
+					//今天该二级类别最热门的圈子
+					Query query = getBaseDao()
+							.getEm()
+							.createQuery(
+									"select t.circleEntity from CircleStatisticalEntity t where  t.circleEntity.secCategory = ? order by t.dayReplyCount desc");
+					query.setParameter(1, secondaryCircleCategory);
+					query.setMaxResults(num);
+					List<CircleEntity> circles = query.getResultList();
+					CategoryAndCircle categoryAndCircle = new CategoryAndCircle();
+					categoryAndCircle.setCategory(secondaryCircleCategory);
+					categoryAndCircle.setCircles(circles);
+					secondShow.add(categoryAndCircle);
 				}
 			}
-			if (!secMap.isEmpty()) {
-				map.put(category, secMap);
-			}
+			categoryCircleShow.setCategoryAndCircles(secondShow);
+			list.add(categoryCircleShow);
 		}
-		return map;
+		return list;
 	}
 
 	/**
@@ -371,10 +326,11 @@ public class CircleService extends BaseService {
 	 * @param circleEntity the circle entity
 	 */
 	public void join2Circle(SysUserEntity userEntity, CircleEntity circleEntity) {
-		List<SysUserEntity> member = circleEntity.getMemberUser();
-		member.add(userEntity);
-		circleEntity.setMemberUser(member);
-		save(circleEntity);
+		CircleMemberInfoEntity memberInfoEntity = new CircleMemberInfoEntity();
+		memberInfoEntity.setCircleEntity(circleEntity);
+		memberInfoEntity.setMemberType(MemberType.MEMBER);
+		memberInfoEntity.setSysUserEntity(userEntity);
+		save(memberInfoEntity);
 	}
 
 	//加入副圈主
@@ -385,16 +341,10 @@ public class CircleService extends BaseService {
 	 * @param circleEntity the circle entity
 	 */
 	public void join2SecondaryMaster(SysUserEntity userEntity, CircleEntity circleEntity) {
-		//取消普通成员
-		List<SysUserEntity> member = circleEntity.getMemberUser();
-		member.remove(userEntity);
-		circleEntity.setMemberUser(member);
-		List<SysUserEntity> secondary = circleEntity.getSecondaryMaster();
-		if (secondary.size() > 0) {
-			secondary.add(userEntity);
-		}
-		circleEntity.setSecondaryMaster(secondary);
-		save(circleEntity);
+		CircleMemberInfoEntity memberInfoEntity = findUnique(
+				"from CircleMemberInfo t where t.sysUserEntity=? and t.circleEntity=?", userEntity, circleEntity);
+		memberInfoEntity.setMemberType(MemberType.SECONDARYMASTER);
+		save(memberInfoEntity);
 	}
 
 	/**
@@ -455,7 +405,6 @@ public class CircleService extends BaseService {
 	 * 24小时热帖排行
 	 *
 	 * @param userEntity the user entity
-	 * @param circleEntity the circle entity
 	 * @param num the num
 	 * @return the 24 hot topci
 	 */
@@ -550,5 +499,30 @@ public class CircleService extends BaseService {
 		}
 		query.setMaxResults(num);
 		return query.getResultList();
+	}
+
+	/**
+	 * Gets the reply.
+	 * 获得话题回复
+	 * @param topicEntity the topic entity
+	 * @param pageRequest the page request
+	 * @return the reply
+	 */
+	public Page<CircleTopicReplyEntity> getReply(CircleTopicEntity topicEntity, PageRequest pageRequest) {
+		return findPage(pageRequest, "from CircleTopicReplyEntity t where t.circleTopicEntity=? order by t.replyDate",
+				topicEntity);
+	}
+
+	/**
+	 * Gets the floor.
+	 * 获得话题的回复数
+	 * @param topicEntity the topic entity
+	 * @return the floor
+	 */
+	public String getFloor(CircleTopicEntity topicEntity) {
+		Query query = getBaseDao().getEm().createQuery(
+				"select count(*) from CircleTopicReplyEntity t where t.circleTopicEntity=?");
+		query.setParameter(1, topicEntity);
+		return query.getSingleResult().toString();
 	}
 }

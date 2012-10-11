@@ -1,3 +1,14 @@
+$(document).ready(function(){
+	$('#circleForm').submit(function(){
+		$('#realInfoForm').ajaxSubmit(function(){
+			$('#masterReason').val($('#reason').val());
+			$('#circleForm').ajaxSubmit();
+			window.location.href=web_path+'/circle/joinedCircle';
+			return false;
+		});
+		return false;
+	});
+});
 function submitForm(){
 	$('#circleForm').submit();
 }
@@ -55,7 +66,7 @@ function newTopic(id){
 function submitOper(jqId){
 	$('#'+jqId).submit();
 }
-function getCircleManageUrl(index,id){alert(index);
+function getCircleManageUrl(index,id){
 	//index 0成员审批1成员列表2圈文审核3操作记录4数据统计5基本设置6副圈主管理
 	var url;
 	switch(index){
@@ -80,4 +91,33 @@ function getCircleManageUrl(index,id){alert(index);
 		break;
 	}
 	return url;
+}
+function refReply(id){
+	var html="<div class=\"gray_font\" style=\"height:70px;\"><fieldset style=\"width:500px;border:1px solid #ccc;line-height:16px;color:#000;padding:3px;font-size:12px;text-align: left;\"><legend class=\"gray_font\" style=\"font-size:14px\">引用 "+$('#name_'+id).html()+" （"+$('#floor').html()+"）</legend>"+$('#content_'+id).html()+"</fieldset></div>"
+	$('#comment_id').html(html);alert(html);
+	$('#comment_id').focus();
+}
+function replyTopic(){
+	$('#replyForm').submit();
+}
+function go2Page(index){
+	var pageNo;
+	if(index=='prev'){
+		pageNo=$('#pageNo').val()-1;
+	}else
+	if(index=='next'){
+		pageNo=$('#pageNo').val()*1+1;
+	}else
+	if(index=='first'){
+		pageNo=0;
+	}else
+	if(index=='end'){
+		pageNo=$('#totalPage').val();
+	}else{
+		pageNo=index;
+	}
+	//$('#pageSize').val(pageSize);
+	$('#pageNo').val(pageNo);
+	$('#pageForm').attr('method','get');
+	$('#pageForm').submit();
 }

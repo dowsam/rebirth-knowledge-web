@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2005-2012-9-29 www.china-cti.com
- * Id: SysUserService.java,16:20:23
+ * Copyright (c) 2005-2012-10-9 www.china-cti.com
+ * Id: SysUserService.java,10:58:03
  * @author wuwei
  */
 package cn.com.rebirth.knowledge.web.service;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.*;
 
 import cn.com.rebirth.commons.*;
 import cn.com.rebirth.core.template.*;
+import cn.com.rebirth.knowledge.commons.entity.blogMaster.*;
 import cn.com.rebirth.knowledge.commons.entity.study.*;
 import cn.com.rebirth.knowledge.commons.entity.system.*;
 import cn.com.rebirth.persistence.service.*;
@@ -82,7 +83,7 @@ public class SysUserService extends BaseService {
 	 * @return the attenion user
 	 */
 	public Page<SysUserEntity> getAttenionUser(SysUserEntity userEntity, PageRequest pageRequest) {
-		return findPage(pageRequest, "select t.attentionUser from SysUserEntity t where t=? ", userEntity);
+		return findPage(pageRequest, "select t.attentionMe from BlogAttentionMe t where t.user=? ", userEntity);
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class SysUserService extends BaseService {
 	 * @return the fans
 	 */
 	public Page<SysUserEntity> getFans(SysUserEntity userEntity, PageRequest pageRequest) {
-		return findPage(pageRequest, "select t from SysUserEntity t join t.attentionUser u where u=?", userEntity);
+		return findPage(pageRequest, "select t.fans from BlogFans t where t.user=?", userEntity);
 	}
 
 	/**
@@ -116,12 +117,15 @@ public class SysUserService extends BaseService {
 	 */
 	public void addFriendFromApprov(SysUserEntity sysUserEntity, Long[] ids) {
 		List<UserFriendApprovEntity> appFriends = findByIds(UserFriendApprovEntity.class, Arrays.asList(ids));
-		List<SysUserEntity> friends = sysUserEntity.getFriendUser();
+		//找到这个人的朋友
+		BlogFriend blogFriend = findUnique("from BlogFriend t where t.user=?", sysUserEntity);
+		List<SysUserEntity> friends = blogFriend.getFriends();
 		for (UserFriendApprovEntity user : appFriends) {
 			friends.add(user.getUserEntity());
 		}
-		sysUserEntity.setFriendUser(friends);
-		save(sysUserEntity);
+		blogFriend.setFriends(friends);
+		blogFriend.setFriendNum(friends.size());
+		save(blogFriend);
 		delete(appFriends);
 	}
 
@@ -145,6 +149,16 @@ public class SysUserService extends BaseService {
 	 * @return the my friend
 	 */
 	public Page<SysUserEntity> getMyFriend(SysUserEntity userEntity, PageRequest pageRequest) {
-		return findPage(pageRequest, "select t.friendUser from SysUserEntity t where t=?", userEntity);
+		return findPage(pageRequest, "select t.friends from BlogFriend t where t.user=?", userEntity);
+	}
+
+	/**
+	 * Gets the real info.
+	 * 获得个人的真实信息
+	 * @param sysUserEntity the sys user entity
+	 * @return the real info
+	 */
+	public SysUserRealInfoEntity getRealInfo(SysUserEntity sysUserEntity) {
+		return findUnique("from SysUserRealInfoEntity t where t.sysUserEntity=?", sysUserEntity);
 	}
 }

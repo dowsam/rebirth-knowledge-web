@@ -119,7 +119,7 @@
         <div class="st_left_tree"></div>
         <h3><a style="background:url(images/xiaox.png) no-repeat 20px center;">我的消息</a></h3>
         <ul style="display:block" id="b">
-          <li class="active4"><a>写信息</a></li>
+          <li style="display:none;"><a>写信息</a></li>
           <li><a>通讯录</a></li>
         </ul>
         <h3><a href="#" style="background:url(images/biaoq.png) no-repeat 20px center;">我的标签</a></h3>

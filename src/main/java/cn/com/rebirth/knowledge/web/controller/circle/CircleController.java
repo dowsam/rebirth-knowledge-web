@@ -4,7 +4,6 @@ import java.beans.*;
 import java.util.*;
 
 import javax.servlet.http.*;
-import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -18,7 +17,11 @@ import cn.com.rebirth.commons.exception.*;
 import cn.com.rebirth.commons.utils.*;
 import cn.com.rebirth.core.web.controller.*;
 import cn.com.rebirth.knowledge.commons.entity.circle.*;
+import cn.com.rebirth.knowledge.commons.entity.circle.CircleMemberApprovalEntity.ApprovalType;
+import cn.com.rebirth.knowledge.commons.entity.circle.CircleMemberInfoEntity.MemberType;
 import cn.com.rebirth.knowledge.commons.entity.system.*;
+import cn.com.rebirth.knowledge.commons.pojo.circle.*;
+import cn.com.rebirth.knowledge.web.service.*;
 import cn.com.rebirth.knowledge.web.service.circle.*;
 
 @Controller
@@ -27,14 +30,12 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 	private static int TOPICNUM = 12;
 	private static int LEFTSIDENUM = 6;
 	private CircleService circleService;
+	private SysUserService sysUserService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(Model model) {
-		Map<CircleCategoryEntity, List<CircleTopicEntity>> map = circleService.getHotTopicMap(TOPICNUM);
-		Map<CircleCategoryEntity, Map<CircleCategoryEntity, List<CircleEntity>>> secMap = circleService
-				.getHotCircle(TOPICNUM);
-		model.addAttribute("map", map);
-		model.addAttribute("secMap", secMap);
+		List<CategoryAndTopic> showList = circleService.getHotTopic(TOPICNUM);
+		model.addAttribute("showList", showList);
 		List<CircleTopicEntity> hotTopic24 = circleService.get24HotTopic(null, LEFTSIDENUM);
 		List<CircleEntity> weekNewlyCircle = circleService.getWeekNewlyTopic(null, LEFTSIDENUM);
 		List<CircleTopicEntity> weekReplyTopic = circleService.getWeekReplyTopic(null, LEFTSIDENUM);
@@ -50,7 +51,7 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 	public void InitBinder(WebDataBinder binder) {
 		super.initBinder(binder);
 		//绑定一级类别
-		binder.registerCustomEditor(CircleCategoryEntity.class, "category", new PropertyEditorSupport() {
+		binder.registerCustomEditor(CircleCategoryEntity.class, "circleEntity.category", new PropertyEditorSupport() {
 			@Override
 			public void setAsText(String text) {
 				if (!StringUtils.hasText(text)) {
@@ -61,16 +62,17 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 			}
 		});
 		//绑定二级类别
-		binder.registerCustomEditor(CircleCategoryEntity.class, "secCategory", new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String text) {
-				if (!StringUtils.hasText(text)) {
-					return;
-				}
-				CircleCategoryEntity second = circleService.get(CircleCategoryEntity.class, Long.valueOf(text));
-				setValue(second);
-			}
-		});
+		binder.registerCustomEditor(CircleCategoryEntity.class, "circleEntity.secCategory",
+				new PropertyEditorSupport() {
+					@Override
+					public void setAsText(String text) {
+						if (!StringUtils.hasText(text)) {
+							return;
+						}
+						CircleCategoryEntity second = circleService.get(CircleCategoryEntity.class, Long.valueOf(text));
+						setValue(second);
+					}
+				});
 	}
 
 	@Override
@@ -92,25 +94,50 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 		ResponseTypeOutputUtils.renderJson(response, json);
 	}
 
-	@Override
-	public String create(Model model, @Valid CircleEntity entity, BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) throws RebirthException {
-		SysUserRealInfoEntity realInfoEntity = entity.getMaster().getRealInfoEntity();
-		circleService.save(realInfoEntity);
+	@RequestMapping(method = RequestMethod.POST, value = "/saveUserRealInfo")
+	public void saveRealInfo(Model model, SysUserRealInfoEntity realInfoEntity, HttpServletResponse response) {
 		//TODO 得到当前登录的人员
 		SysUserEntity userEntity = circleService.get(SysUserEntity.class, 255l);
+		SysUserRealInfoEntity realInfo = userEntity.getRealInfoEntity();
+		if (null == realInfo) {
+			realInfoEntity.setSysUserEntity(userEntity);
+			circleService.save(realInfoEntity);
+		}
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/saveCircle")
+	public void createCircle(Model model, CreateCircle createCircle, BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws RebirthException {
+		CircleEntity entity = createCircle.getCircleEntity();
+		//TODO 得到当前登录的人员
+		SysUserEntity userEntity = circleService.get(SysUserEntity.class, 255l);
+		SysUserRealInfoEntity realInfoEntity = sysUserService.getRealInfo(userEntity);
 		userEntity.setRealInfoEntity(realInfoEntity);
-		circleService.save(userEntity);
+		sysUserService.save(userEntity);
 		entity.setCreateDate(new Date());
-		entity.setMaster(userEntity);
 		circleService.save(entity);
-		model.addAttribute("newlyTopic", circleService.getTopic(userEntity, TOPICNUM));
+		//将该人加入为成员
+		CircleMemberInfoEntity memberInfoEntity = new CircleMemberInfoEntity();
+		memberInfoEntity.setCircleEntity(entity);
+		memberInfoEntity.setSysUserEntity(userEntity);
+		memberInfoEntity.setMemberType(MemberType.MEMBER);
+		circleService.save(memberInfoEntity);
+		if (createCircle.isRegistMaster()) {
+			//圈主申请
+			CircleMemberApprovalEntity approvalEntity = new CircleMemberApprovalEntity();
+			approvalEntity.setApprovalType(ApprovalType.MASTER_APPROVAL);
+			approvalEntity.setCircleEntity(entity);
+			approvalEntity.setReason(createCircle.getRegistMasterReason());
+			approvalEntity.setUserEntity(userEntity);
+			circleService.save(approvalEntity);
+		}
+		/*model.addAttribute("newlyTopic", circleService.getTopic(userEntity, TOPICNUM));
 		model.addAttribute("marrowTopic", circleService.getMarrowTopic(userEntity, TOPICNUM));
 		model.addAttribute("myTopic", circleService.getMyTopic(userEntity, TOPICNUM));
 		model.addAttribute("replyTopic", circleService.getMyReplyTopic(userEntity, TOPICNUM));
 		model.addAttribute("managingCircle", circleService.getManagingCircle(userEntity));
 		model.addAttribute("memberCircle", circleService.getMemberCircle(userEntity));
-		return "/circle/joinedCircle";
+		return "/circle/joinedCircle";*/
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/joinedCircle")
@@ -185,6 +212,11 @@ public class CircleController extends AbstractBaseRestController<CircleEntity, L
 	@Autowired
 	public void setCircleService(CircleService circleService) {
 		this.circleService = circleService;
+	}
+
+	@Autowired
+	public void setSysUserService(SysUserService sysUserService) {
+		this.sysUserService = sysUserService;
 	}
 
 }

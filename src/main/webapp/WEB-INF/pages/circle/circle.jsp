@@ -95,21 +95,21 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <c:forEach var="category" items="${map }" varStatus="status">
+            <c:forEach var="show" items="${showList }" varStatus="status">
             	<div class="qzdh">
             		<c:if test="${status.index  eq 0 }">
             			<h2>圈子导航</h2>
             		</c:if>
-            		<p>${category.key.categoryName }</p>
+            		<p>${show.circleCategory.categoryName }</p>
             		<ul>
-            			<c:forEach var="item" items="${category.value }">
+            			<c:forEach var="item" items="${show.topics }">
             				<li><a href="#" onclick="openCircleTopic('${item.id}');return;">${item.topicName }</a><span><a href="#" onclick="openCircle('${item.circleEntity.id}');">[${item.circleEntity.circleName }]</a></span></li>
             			</c:forEach>
             		</ul> 
             		<ul id="ss">
-            			<c:forEach var="sec" items="${secMap[category.key] }">
-            				<li><span>${sec.key.categoryName } |</span>
-            					<c:forEach var="item" items="${secMap[category.key][sec.key] }">
+            			<c:forEach var="sec" items="${show.categoryAndCircles }">
+            				<li><span>${sec.circleCategory.categoryName } |</span>
+            					<c:forEach var="item" items="${sec.topics }">
             						<a href="#" onclick="openCircle('${item.id}')">${item.circleName }</a>
             					</c:forEach>
             				</li>

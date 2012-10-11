@@ -312,7 +312,7 @@ ul{ margin: 0; padding: 0; list-style: none; }
 .dtjia .tjia_t { font-size:14px; padding-left:10px; margin-top:10px}
 .dtjia_t a { float:right; color:#3996C2; font-weight:bold; margin-right:10px;font-size:14px}
 .dtjia ul { list-style:none; margin-left:10px; padding:0; margin-top:20px}
-.dtjia ul li {float:left; margin-right:3px; margin-top:10px;background:#fff; padding:4px; border:1px solid #D9F5F9; height:15px;line-height:15px; color:#5F97BE; width:43px}
+.dtjia ul li {float:left; margin-right:3px; margin-top:10px;background:#fff; padding:4px; border:1px solid #D9F5F9; height:15px;line-height:15px; color:#5F97BE; width:auto}
 .dtjia ul li a {color:#5F97BE; fl1oat:right;}
 .dtjia ul li a:hover {color:#79C5E9}
 .dtjia ul li em{ font-size:14px;color:#5296C4;padding-left:3px;height:15px;line-height:15px;}

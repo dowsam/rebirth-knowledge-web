@@ -8,6 +8,7 @@
 <title>创建圈子</title>
 <link href="${path }css/reset.css" rel="stylesheet" />
 <link href="${path }css/globel.css" rel="stylesheet" />
+<script type="text/javascript" src="${path }js/jquery.form.js"></script>
 <script type="text/javascript"  src="${path }js/circle/circle.js"></script>
 <script type="text/javascript">
 	var web_path='${path}';
@@ -79,21 +80,22 @@
       </div>
 <div class="cjqz" style="hei1ght:1000px;">  
 <h2>创建圈子</h2>	
-<form id="circleForm" action="${path }circle" method="post">
+<form id="circleForm"  action="${path }circle/saveCircle"  method="post">
+<input type="hidden" id="masterReason" name="registMasterReason" />
 	<table style="margin-top:5px">
     	<tr>
         	<td width="10%" class="title_font2">&nbsp;圈子名称：</td>
-            <td width="90%" style="text-align: left;"><input type="text" name="circleName" style="margin-left:3px;width:225px;"/><em style=" background:url(../images/bg_group_icon.gif) no-repeat -21px -267px; padding:2px 12px;"></em><span>（限汉字、字母、数字和下划线）</span></td>
+            <td width="90%" style="text-align: left;"><input type="text" name="circleEntity.circleName" style="margin-left:3px;width:225px;"/><em style=" background:url(../images/bg_group_icon.gif) no-repeat -21px -267px; padding:2px 12px;"></em><span>（限汉字、字母、数字和下划线）</span></td>
         </tr>
         <tr>
         	<td class="title_font2">&nbsp;所属分类：</td>
             <td>
-            	<select name="category"  onChange="getSecCategory(this.value)">
+            	<select name="circleEntity.category"  onChange="getSecCategory(this.value)">
             		<c:forEach var="item" items="${category }">
                 		<option value="${item.id }">${item.categoryName }</option>            
             		</c:forEach>
                 </select>&nbsp;
-                <select name="secCategory" id="secCategory">
+                <select name="circleEntity.secCategory" id="secCategory">
                 	<c:forEach var="item" items="${secCategory }">
                 		<option value="${item.id }">${item.categoryName }</option>            
             		</c:forEach>
@@ -103,23 +105,25 @@
         <tr>
         	<td align="right" valign="top" class="title_font2">&nbsp;圈子属性：</td>
             <td style="text-align:left">
-            	<input type="radio" name="circleType" checked value="PUBLIC"/>&nbsp;<strong style="font-weight:bold">公开圈子</strong>&nbsp;<span class="title_font3">所有人都可以浏览圈子内容并发帖</span><br/>
-                <input type="radio" name="circleType" value="PROTECT"/>&nbsp;<strong style="font-weight:bold">会员圈子</strong>&nbsp;<span class="title_font3">所有人都可以浏览圈子内容，但只有加入圈子的会员可以发帖</span><br/>
-                <input type="radio" name="circleType" value="PRIVATE"/>&nbsp;<strong style="font-weight:bold">私密圈子</strong>&nbsp;<span class="title_font3">只有加入圈子的会员，可以浏览圈子内容并发帖</span><br/>
+            	<input type="radio" name="circleEntity.circleType" checked value="PUBLIC"/>&nbsp;<strong style="font-weight:bold">公开圈子</strong>&nbsp;<span class="title_font3">所有人都可以浏览圈子内容并发帖</span><br/>
+                <input type="radio" name="circleEntity.circleType" value="PROTECT"/>&nbsp;<strong style="font-weight:bold">会员圈子</strong>&nbsp;<span class="title_font3">所有人都可以浏览圈子内容，但只有加入圈子的会员可以发帖</span><br/>
+                <input type="radio" name="circleEntity.circleType" value="PRIVATE"/>&nbsp;<strong style="font-weight:bold">私密圈子</strong>&nbsp;<span class="title_font3">只有加入圈子的会员，可以浏览圈子内容并发帖</span><br/>
             </td>
         </tr>
          <tr>
         	<td align="right" class="title_font2">&nbsp;申请圈主：</td>
             <td class="title_font3">
-            	<input type="checkbox" id="registMaster"  name="registMaster" onclick="registerHostInfo();"/>同时申请为圈主
+            	<input type="checkbox" id="registMaster"   name="registMaster" onclick="registerHostInfo();"/>同时申请为圈主
             </td>
         </tr>
         <tr>
         	<td style="font-size:16px; text-align:center">圈 馆：</td>
-            <td style="font-size:16px;"><input type="radio" name="qg" style="float:left" />拥有圈子文馆<br />
-            													<input type="radio" name="qg" style="float:left"/>不拥有圈子文馆</td>
+            <td style="font-size:16px;"><input type="radio" name="circleEntity.haveLibiary"  value="true" style="float:left" />拥有圈子文馆<br />
+            													<input type="radio" name="circleEntity.haveLibiary"  value="false" style="float:left"/>不拥有圈子文馆</td>
         </tr>
 	</table>
+	</form>
+	<form id="realInfoForm" action="${path }circle/saveUserRealInfo" method="post">
     <!-- 填写注册圈主信息-->
     <table id="registerHostInfo">
     	<tr>
@@ -131,30 +135,30 @@
                     <tr>
                     	<td width="12%" class="title_font2"><font color="red">*</font>&nbsp;申请理由：</td>
                         <td width="88%">
-                        	<textarea name="reason" cols="50" rows="6"></textarea>
+                        	<textarea id="reason" cols="50" rows="6"></textarea>
                         </td>
                     </tr>
                     <tr>
                     	<td class="title_font2"><font color="red">*</font>&nbsp;QQ/MSN：</td>
                         <td>
-                        	<input type="text" name="master.realInfoEntity.MSNorQQ" style="width:400px;"/>&nbsp;&nbsp;<em style=" background:url(../images/bg_group_icon.gif) no-repeat -21px -267px; padding:2px 12px;"></em>
+                        	<input type="text" name="MSNorQQ" style="width:400px;"/>&nbsp;&nbsp;<em style=" background:url(../images/bg_group_icon.gif) no-repeat -21px -267px; padding:2px 12px;"></em>
                         </td>
                     </tr>
                     <tr>
                     	<td class="title_font2"><font color="red">*</font>&nbsp;真实姓名：</td>
                         <td>
-                        	<input type="text" name="master.realInfoEntity.realName" style="width:400px;"/>&nbsp;&nbsp;<em style=" background:url(images/bg_group_icon.gif) no-repeat -21px -267px; padding:2px 12px;"></em>
+                        	<input type="text" name="realName" style="width:400px;"/>&nbsp;&nbsp;<em style=" background:url(images/bg_group_icon.gif) no-repeat -21px -267px; padding:2px 12px;"></em>
                         </td>
                     </tr><tr>
                     	<td class="title_font2"><font color="red">*</font>&nbsp;身份证号：</td>
                         <td>
-                        	<input type="text" name="master.realInfoEntity.idCardNum" style="width:400px;"/>
+                        	<input type="text" name="idCardNum" style="width:400px;"/>
                         </td>
                     </tr>
                     <tr class="title_font2">
                     	<td style="font-size:14px;text-align:center"><font color="red">*</font>&nbsp;联系电话：</td>
                         <td>
-                        	<input type="text" name="master.realInfoEntity.phoneNum" style="width:400px;"/>
+                        	<input type="text" name="phoneNum" style="width:400px;"/>
                         </td>
                     </tr>
                     <tr class="title_font2">
@@ -163,10 +167,10 @@
                         	<select name="province">
                             	<option value="0" checked>&nbsp;省/市</option>
                             </select>
-                            <select name="province">
+                            <select name="city">
                             	<option value="0" checked>&nbsp;地区/市</option>
                             </select>
-                            <input type="text" name="master.realInfoEntity.address" style="width:232px;"/>
+                            <input type="text" name="address" style="width:232px;"/>
                         </td>
                     </tr>
                     <tr>
@@ -180,6 +184,7 @@
         </tr>
         
     </table>
+    </form>
     <!-- -验证码以下-->
     <div class="clear"></div>
     <table style="margin-top:5px">
@@ -202,7 +207,7 @@
             </td>
         </tr>
       </table>
-      </form>
+      
 </div>
     
    

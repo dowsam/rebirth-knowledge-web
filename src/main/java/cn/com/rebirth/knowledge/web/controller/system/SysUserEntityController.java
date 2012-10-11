@@ -17,9 +17,11 @@ import cn.com.rebirth.commons.utils.*;
 import cn.com.rebirth.core.email.*;
 import cn.com.rebirth.core.inject.*;
 import cn.com.rebirth.core.web.controller.*;
+import cn.com.rebirth.knowledge.commons.entity.blogMaster.*;
 import cn.com.rebirth.knowledge.commons.entity.study.*;
 import cn.com.rebirth.knowledge.commons.entity.system.*;
 import cn.com.rebirth.knowledge.web.service.*;
+import cn.com.rebirth.knowledge.web.service.blogMaster.*;
 
 import com.google.common.collect.*;
 
@@ -34,6 +36,7 @@ public class SysUserEntityController extends AbstractBaseRestController<SysUserE
 	private TagBelongUserService tagBelongUserService;
 
 	private TagService tagService;
+	private BlogMasterService blogMasterService;
 
 	@Override
 	public String _new(Model model, SysUserEntity entity, HttpServletRequest request, HttpServletResponse response)
@@ -199,7 +202,15 @@ public class SysUserEntityController extends AbstractBaseRestController<SysUserE
 		}
 		tagBelongUserService.save(tagBelongEntities);
 		userEntity.setTagBelongUserEntities(tagBelongEntities);
-		userEntity.setAttentionUser(blogUserEntities);
+		//关注信息放入blogmaster中
+		BlogMaster blogMaster = new BlogMaster();
+		//关注信息
+		BlogAttentionMe attentionMe = new BlogAttentionMe();
+		attentionMe.setAttentionMe(blogUserEntities);
+		attentionMe.setAttentionNum(blogUserEntities.size());
+		blogMaster.setAttentionMe(attentionMe);
+		blogMaster.setUser(userEntity);
+		blogMasterService.save(blogMaster);
 		sysUserService.save(userEntity);
 		return "/study/bookHouse";
 	}
@@ -237,6 +248,11 @@ public class SysUserEntityController extends AbstractBaseRestController<SysUserE
 	@Autowired
 	public void setTagBelongUserService(TagBelongUserService tagBelongUserService) {
 		this.tagBelongUserService = tagBelongUserService;
+	}
+
+	@Autowired
+	public void setBlogMasterService(BlogMasterService blogMasterService) {
+		this.blogMasterService = blogMasterService;
 	}
 
 }
