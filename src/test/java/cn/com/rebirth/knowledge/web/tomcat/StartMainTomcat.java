@@ -1,6 +1,8 @@
 package cn.com.rebirth.knowledge.web.tomcat;
 
-import org.apache.catalina.startup.Embedded;
+import org.apache.catalina.startup.*;
+
+import cn.com.rebirth.commons.utils.*;
 
 /**
  * The Class StartMainTomcat.
@@ -25,7 +27,9 @@ public class StartMainTomcat {
 		System.setProperty("catalina.base", System.getProperty("user.dir") + "/server");
 		System.setProperty("zk.zkConnect", "192.168.2.179:2181");
 		System.setProperty("rebirth.service.middleware.development.model", "true");
-		//H2ServerUtils.buildH2Server("-web", "-tcp");
+		//单机开发模式	
+		System.setProperty("rebirth.knowledge.web.localhost", "true");
+		H2ServerUtils.buildH2Server("-web", "-tcp");
 		Embedded server = TomcatUtils.buildNormalServer(PORT, CONTEXT, "rebirth-knowledge-web", "utf-8");
 		server.start();
 		System.out.println("Hit Enter in console to stop server");

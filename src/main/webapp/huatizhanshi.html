@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>话题展示</title>
+<link href="css/reset.css" rel="stylesheet" />
+<link href="css/globel.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/obj.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div class="warp">
+<div class="av">
+	<div class="top">
+    <div class="right">
+          <div class="top_tool">
+            <ul>
+              <li id="tool_1"><a>装扮</a></li>
+              <li id="tool_2"><a>设置</a></li>
+              <li id="tool_3"><a>消息
+                <ul id="xinxi">
+                  <li><label><a href="http://www.baidu.com" target="_blank">查看信箱</a></label>(<span>22</span>)</li>
+                  <li><a>查看私信</a>(<span>33</span>)</li>
+                  <li><a>系统通知</a>(<span>44</span>)</li>
+                </ul>
+                </a></li>
+              <li id="tool_4"><a href="#">登录</a></li>
+              <li id="tool_5"><a href="#">退出</a></li>
+            </ul>
+          </div>
+          <div class="clear"></div>
+        </div>
+    </div>
+</div>
+    <div class="head">
+      <div class="top">
+        <div class="left">
+          <div class="logo"><a hr1ef="http://www.baidu.com"><img src="images/logo.jpg" /></a></div>
+        </div>
+        <div class="middle">
+            <div class="search">
+                <input type="text" value="输入关键字" class="focus1" />
+                <span><input type="button" value="搜索" /></span><br />
+                <div class="clear"></div>
+                <ul>
+                  <li><a href="#">新闻</a></li>
+                  <li><a>奥运</a></li>
+                  <li><a>音乐</a></li>
+                  <li><a>视频</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>交友</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>交友</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>奥运</a></li>
+                  <li><a>音乐</a></li>
+                  <li><a>视频</a></li>
+                  <li><a>美图</a></li>
+                </ul>
+              </div>
+        </div> 
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="nav">
+        <ul>
+          <li><a href="index.html">首 页</a>|</li>
+          <li><a href="yls.html">社区阅览室</a>|</li>
+          <li><a href="bwdr.html">博文达人</a>|</li>
+          <li><a href="shufang.html">我的书房</a>|</li>
+          <li><a href="quanzi.html" class="active">圈 子</a>|</li>
+          <li><a href="zyzx.html">企业资源中心</a></li>
+        </ul>
+      </div>
+      
+<style type="text/css">
+.title_font {font-size:18px;padding:15px 0px 15px 10px;}
+.title_font2 {margin:0px 0px 15px 10px;line-height:20px;border:1px solid;border-color:#d4e6f1;background-color:#f4fcff;font-size:14px;padding:2px 0px 2px 8px;}
+.title_font3 {margin:0px 0px 15px 10px;line-height:20px;font-size:14px;padding:2px 0px 2px 2px;}
+.title_font4 {font-size:14px;padding-left:50px;}
+.title_font5 {font-size:12px;}
+.content_p{
+	text-indent: 2em; /*em是相对单位，2em即现在一个字大小的两倍*/
+}
+.content{
+	font-size:14px;
+}
+.user_a {font-size:12px;text-decoration:none;}
+.user_a:active {color:red;text-decoration:underline;}
+.user_a:hover {color:red;text-decoration:underline;}
+.user_a:visited {text-decoration:none;}
+.host {font-size:12px;}
+.blue_font {font-size:12px;color:#4F94CD;padding-top:5px;padding-left:20px;padding-right:20px;}
+.blue_font2 {font-size:12px;color:#1874CD;font-weight:bold;padding-top:5px;padding-left:20px;padding-right:20px;}
+.blue_font3 {font-size:12px;color:#1874CD;}
+.gray_font {font-size:12px;color:#B7B7B7;}
+.li_class {line-height:20px;list-style-type:disc;color:#1874CD;}
+.div_bottom {width:98%;padding-top:15px;border-bottom:1px dashed #c2c2c2;margin-left:10px;margin-right:10px;}
+.space_color {color:#E0EEEE;}
+</style>
+<script language="javascript">
+	$(document).ready(function() {
+		$("#comment_id").css("color","#ccc");
+		$("#comment_id").focus(function(){
+			if($(this).val() == '发表回复'){
+				$(this).val('');
+			};
+		});
+		$("#comment_id").blur(function(){
+			if($(this).val() == ''){
+				$(this).val('发表回复');
+			};
+		});
+    });
+</script>
+
+<div style="width:900px;height:auto;margin:auto;border:1px solid;border-color:#C3DEEC;"> 
+<div>
+<div style="width:100%;"> 
+<!-- 左边div -->
+<div style="width:80%;float:left;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+    	<td width="60%">
+        	<div class="title_font">社区圈子&nbsp;>&nbsp;AAQ了望&nbsp;>&nbsp;浏览帖子</div>
+        </td>
+        <td width="40%" align="right">
+        	<div><a href="#"><img src="images/font_page.jpg" width="60px" height="23px" border="0"/></a>&nbsp;<a href="#"><img src="images/page1.jpg" width="24px" height="21px" border="0"/></a>&nbsp;<a href="#"><img src="images/page2.jpg" width="24px" height="21px" border="0"/></a>&nbsp;<a href="#"><img src="images/next_page.jpg" width="59px" height="22px" border="0"/></a>&nbsp;</div>	
+        </td>
+    </tr>
+</table>
+
+<div class="title_font2">带你一起看草原（二）香巴拉阿坝</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+    	<td width="13%" algin="center" valign="top" style="text-align:center;">
+        	<img src="images/users/user06.jpg" width="53px" height="53px"/><br/><a href="#" class="user_a">st城子</a><br/><a href="#"><img src="images/flow.jpg" width="49px" height="20px" border="0"/></a>
+        </td>
+        <td width="82%">
+        	<div class="content"><span style="padding-left:34px;"></span>生平第一次走进位于川甘青结合部，与阿坝县美好短暂的邂逅，就被这片尚处于原生态的神奇土地深深吸.生平第一次走进位于川甘青结合部，与阿坝县美好短暂的邂逅，就被这片尚处于原生态的神奇土地深深吸引。<br/>
+           <span style="padding-left:34px;"></span>生平第一次走进位于川甘青结合部，与阿坝县美好短暂的邂逅，就被这片尚处于原生态的神奇土地深深吸.生平第一次走进位于川甘青结合部，与阿坝县美好短暂的邂逅，就被这片尚处于原生态的神奇土地深深吸引。<br/>
+            </div>
+            <div style="margin-top:60px;width:100%;text-align:center;">
+            	<img src="images/fengjing01.jpg" width="469px" height="206"/>
+            </div>
+        </td>
+        <td width="5%" valign="top" class="host">楼主</td>
+    </tr>
+</table>
+</div>
+<!-- 右边div -->
+<div style="width:1%;float:left;">&nbsp;</div>
+<div style="width:19%;float:left;background-color:#B2DFEE;">
+	<div style="width:100%;text-align:center;height:60px;">
+        <div style="width:45%;float:left;"><img src="images/users/user07.jpg" width="53px" height="50px"/></div>
+        <div style="width:50%;float:left;height:50px">AAQ了望</div>
+    </div>
+    <div style="width:100%;" class="blue_font">
+        <span class="blue_font">发帖</span><span class="space_color">|</span><span class="blue_font2">43027</span>
+    </div>
+    <div style="width:100%;" class="blue_font">
+    	<span class="blue_font">成员</span><span class="space_color">|</span><span class="blue_font2">179</span>
+    </div>
+     <div style="width:90%;margin:5px 10px 5px 10px;padding-top:10px;">
+     	<span class="gray_font"><img src="images/bg_tag05.gif" width="3px" height="5px"/><span style="padding-left:8px;"></span>圈主：</span><span class="blue_font3"><a href="#" class="user_a">老冒印象</a></span>
+    </div>
+     <div style="width:90%;margin:5px 10px 5px 10px;">
+        <span class="gray_font"><img src="images/bg_tag05.gif" width="3px" height="5px"/><span style="padding-left:8px;"></span>副圈主：</span><span class="blue_font3"><a href="#" class="user_a">蓝眼儿de芸</span>&nbsp;&nbsp;<a href="#" class="user_a">霞蔚云兴</a>&nbsp;&nbsp;<a href="#" class="user_a">StillFater?</a>&nbsp;&nbsp;<a href="#" class="user_a">AAQUIET</a>&nbsp;&nbsp;<a href="#" class="user_a">st城子</a></span>
+    </div>
+    <div style="width:90%;margin:5px 10px 5px 10px;">
+        <span class="gray_font"><img src="images/bg_tag05.gif" width="3px" height="5px"/><span style="padding-left:8px;"></span>创建时间：2008-01-01</span>
+    </div>
+    <div style="width:100%;text-align:center;">
+        <a href="#"><img src="images/addcir.jpg" width="132px" height="28px" border="0"/></a>
+    </div>
+    <br/>
+    <div style="height:10px;background-color:#CAE5E8;"></div>
+    <br/>
+    <div style="width:100%;height:240px;";>
+    	<span class="title_font3" style="padding-bottom:30px;">AAQ了望24小时热帖</span>
+        <ul style="padding-left:30px;">
+        	<li class="li_class"><a href="#" class="user_a">圆明园赏荷记</a></li>
+            <li class="li_class"><a href="#" class="user_a">驶往爱丁堡【Edinburgh】</a></li>
+            <li class="li_class"><a href="#" class="user_a">【AAQ了望】荐 优秀贴 TO 圈主联盟</a></li>
+            <li class="li_class"><a href="#" class="user_a">带你一起看草原（一）年保玉则</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<!--<tr>
+    	<td width="10%">&nbsp;</td>
+        <td width="65%">
+            <div style="height:40px;"></div>
+            <span class="gray_font">2012年08月10日 11:30</span>
+        </td>
+        <td width="25%" align="right" style="padding-right:10px;">
+            <div style="height:40px;"></div>
+            <a href="#" class="user_a">回复</a>
+        </td>
+    </tr>-->
+</table>
+<div class="div_bottom"></div>
+<div style="padding-top:15px;"></div>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+    	<td width="10%" style="text-align:center;"><img src="images/users/user09.jpg" width="53px" height="53px"/><br/><a href="#" class="user_a">兰山</a><br/><a href="#"><img src="images/flow.jpg" width="49px" height="20px" border="0"/></a></td>
+        <td width="65%">
+        	<span class="content">啊，太棒了。人间美景。</span>
+            <div style="height:40px;"></div>
+            <span class="gray_font">2012年08月10日 11:30</span>
+        </td>
+        <td width="25%" align="right" style="padding-right:10px;">
+            <span class="host">13楼</span>
+            <div style="height:40px;"></div>
+            <a href="#" class="user_a">回复</a>
+        </td>
+    </tr>
+</table>
+<div class="div_bottom"></div>
+<div style="padding-top:15px;"></div>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+    	<td width="10%" style="text-align:center;vertical-align:top;"><img src="images/users/user06.jpg" width="53px" height="53px"/><br/><a href="#" class="user_a">st城子</a><br/><a href="#"><img src="images/flow.jpg" width="49px" height="20px" border="0"/></a></td>
+        <td width="65%">
+        	<div class="gray_font" style="height:70px;">
+			<fieldset>
+				<legend class="gray_font">引用 AAQUIET （8楼）</legend>推荐12年08月09日发表佳作（按照发表时间排序）：22:44 st城子 带你一起看草原（二）香巴拉阿坝 http://q.sohu.com/group/2534/topic/55450868?p=1...
+			</fieldset>
+			</div>
+        	<span class="content">AA圈主辛苦了。</span>
+            <div style="height:40px;"></div>
+            <span class="gray_font">2012年08月10日 11:31</span>
+        </td>
+        <td width="25%" align="right" class="host" style="padding-right:10px;">
+            <span class="host">14楼</span>
+            <div style="height:110px;"></div>
+            <a href="#" class="user_a">回复</a>
+        </td>
+    </tr>
+</table>
+<div class="div_bottom"></div>
+<div style="padding-top:15px;"></div>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+        <td width="100%" align="right">
+        	<div><a href="#"><img src="images/font_page.jpg" width="60px" height="23px" border="0"/></a>&nbsp;<a href="#"><img src="images/page1.jpg" width="24px" height="21px" border="0"/></a>&nbsp;<a href="#"><img src="images/page2.jpg" width="24px" height="21px" border="0"/></a>&nbsp;<a href="#"><img src="images/next_page.jpg" width="59px" height="22px" border="0"/></a>&nbsp;</div>	
+        </td>
+    </tr>
+</table>
+
+
+
+<div class="title_font4">发表回复</div>
+<table width="90%" border="0" cellpadding="0" cellspacing="5" align="center">
+	<tr>
+    	<td width="8%" class="title_font5" valign="top" align="right">内容：</td>
+        <td width="92%"><textarea name="newPost" cols="80" rows="5" id="comment_id">发表回复</textarea></td>
+    </tr>
+    <tr>
+    	<td class="title_font5" valign="top" align="right">验证码：</td>
+        <td valign="middle"><input type="text" style="width:80px;height:24px;" maxlength="4"/>&nbsp;<img align="absmiddle" src="images/checknum.jpg" width="115px" height="25px"/>&nbsp;<a href="#" class="user_a">换一换</a></td>
+    </tr>
+    <tr>
+    	<td></td>
+        <td><a href="#"><img src="images/public.jpg" width="78px" height="34px" border="0"/></a></td>
+    </tr>
+</table>
+</div>
+</div>
+	
+</div>
+    <div class="clear"></div>
+    <div class="foot">
+    	<div class="nav_btm">
+        	<ul>
+            	<li><a href="#">服务条款</a>|</li>
+                <li><a href="#">设博文馆为首页</a>|</li>
+                <li><a href="#">留言交流</a>|</li>
+                <li><a href="#">联系我们</a>|</li>
+                <li><a href="#">友情链接</a>|</li>
+                <li><a href="#">管理平台</a></li>
+            </ul>
+        </div>
+        <div class="banq">
+        	<div class="lin1">主办单位：福建省民政厅 中国电信福建公司</div>
+            <div class="lin2">[电信及增值业务经营许可证：闽ICP备11020745号]</div>
+            <div class="lin3">Copyright© 2007—2011 中国电信福建分公司 版权所有互联网违法和不良信息举报中心</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

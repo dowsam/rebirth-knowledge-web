@@ -176,17 +176,6 @@ $("#dh1").click(function(){
 		$('#userForm').submit();
 	});
 	
-	//我的书房
-	$(".st_left_bottom h3 a").each(function() {
-		$(this).click(function(){
-			$(this).parents("h3").next("ul").show().siblings("ul").hide();
-		});
-	});
-	$(".st_left_bottom ul li").each(function() {
-        $(this).children().click(function(){
-			$(this).parent().addClass("active4").siblings().removeClass("active4");
-		});
-    });
 	
 	//阅览室yls_right2
 	$(".left2 ul").each(function() {
