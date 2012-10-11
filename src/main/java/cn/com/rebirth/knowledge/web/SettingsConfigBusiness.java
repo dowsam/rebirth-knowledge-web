@@ -4,21 +4,20 @@
  */
 package cn.com.rebirth.knowledge.web;
 
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.*;
 
-import com.google.common.collect.Lists;
+import cn.com.rebirth.commons.settings.*;
+import cn.com.rebirth.core.inject.*;
+import cn.com.rebirth.core.settings.*;
+import cn.com.rebirth.knowledge.commons.*;
+import cn.com.rebirth.knowledge.commons.entity.system.*;
+import cn.com.rebirth.service.middleware.client.*;
 
-import cn.com.rebirth.commons.settings.Settings;
-import cn.com.rebirth.core.inject.Business;
-import cn.com.rebirth.core.inject.ModulesBuilder;
-import cn.com.rebirth.core.settings.SettingsModule;
-import cn.com.rebirth.knowledge.commons.InitiativeSettings;
-import cn.com.rebirth.knowledge.commons.entity.system.SysLogEntity;
-import cn.com.rebirth.service.middleware.client.ConsumerProxyFactory;
+import com.google.common.collect.*;
 
 /**
  * The Class SettingsConfigBusiness.
@@ -32,8 +31,20 @@ public class SettingsConfigBusiness implements Business {
 	 */
 	@Override
 	public void toModules(ModulesBuilder modulesBuilder) {
-		InitiativeSettings initiativeSettings = ConsumerProxyFactory.getInstance().proxy(InitiativeSettings.class);
-		Settings settings = initiativeSettings.initiative();
+		Settings settings = ThreadSafeVariableSettings.settingsBuilder()
+				.putProperties("rebirth.knowledge.web.", System.getProperties()).replacePropertyPlaceholders().build();
+		if (settings.getAsBoolean("localhost", false)) {
+			Settings s = ThreadSafeVariableSettings.settingsBuilder()
+					.loadFromClasspath("application-localhost.properties")
+					.loadFromClasspath("logsql-localhost.properties").replacePropertyPlaceholders().build();
+			settings = ThreadSafeVariableSettings.settingsBuilder().put(settings).put(s).build();
+			//nothing
+			settings.getAsMap().put("switchSql", "false");
+		} else {
+			InitiativeSettings initiativeSettings = ConsumerProxyFactory.getInstance().proxy(InitiativeSettings.class);
+			settings = ThreadSafeVariableSettings.settingsBuilder().put(initiativeSettings.initiative()).put(settings)
+					.build();
+		}
 		settings.getAsMap().put("waySql", WebDbWaySql.class.getName());
 		String noInterceptTableName = settings.get("noInterceptTableName");
 		if (StringUtils.isNotBlank(noInterceptTableName)) {

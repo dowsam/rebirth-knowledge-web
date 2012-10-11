@@ -4,15 +4,14 @@
  */
 package cn.com.rebirth.knowledge.web;
 
-import java.util.List;
+import java.util.*;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.*;
 
-import cn.com.rebirth.commons.RebirthContainer;
-import cn.com.rebirth.commons.utils.SpringContextHolder;
-import cn.com.rebirth.commons.utils.ThreadUtils;
-import cn.com.rebirth.knowledge.commons.entity.system.SysLogEntity;
-import cn.com.rebirth.persistence.service.BaseService;
+import cn.com.rebirth.commons.*;
+import cn.com.rebirth.commons.utils.*;
+import cn.com.rebirth.knowledge.commons.entity.system.*;
+import cn.com.rebirth.persistence.service.*;
 
 /**
  * The Class SettingsConfigBeanTest.
@@ -29,6 +28,7 @@ public class SettingsConfigBeanTest {
 	public static void main(String[] args) {
 		System.setProperty("zk.zkConnect", "192.168.2.179:2181");
 		System.setProperty("rebirth.service.middleware.development.model", "true");
+		System.setProperty("rebirth.knowledge.web.localhost", "true");
 		RebirthContainer.getInstance().start();
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[] {
 				"/applicationContext.xml", "/applicationContext-validator.xml", "/cache/applicationContext-cache.xml",

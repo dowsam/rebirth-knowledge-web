@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <%@ include file="/../includeBase.jsp"%>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>我的书房</title>
 <link href="${path }css/reset.css" rel="stylesheet" />
 <link href="${path }css/globel.css" rel="stylesheet" />
+<link href="${path }css/pageCss.css" rel="stylesheet" />
+<script type="text/javascript" src="${path }js/jquery.form.js"></script>
+<script type="text/javascript"  src="${path }js/study/study.js"></script>
+<script type="text/javascript"  src="${path }js/study/shortMsg/shortMsg.js"></script>
+<script type="text/javascript">
+	var web_path='${path}';
+</script>
 </head>
 <body>
 <div class="warp">
@@ -17,11 +23,11 @@
         <div class="top_tool">
           <ul>
             <li id="tool_1"><a>装扮</a></li>
-            <li id="tool_2"><a href="grzx1.html">设置</a></li>
+            <li id="tool_2"><a href="grzx.html">设置</a></li>
             <li id="tool_3"><a>消息
               <ul id="xinxi">
                 <li>
-                  <label><a href="http://www.baidu.com" target="_blank">查看信箱</a></label>
+                  <label><a href="#" target="_blank">查看信箱</a></label>
                   (<span>22</span>)</li>
                 <li><a>查看私信</a>(<span>33</span>)</li>
                 <li><a>系统通知</a>(<span>44</span>)</li>
@@ -38,7 +44,7 @@
   <div class="head">
     <div class="top">
       <div class="left">
-        <div class="logo"><a hr1ef="http://www.baidu.com"><img src="images/logo.jpg" /></a></div>
+        <div class="logo"><a href="http://www.baidu.com"><img src="images/logo.jpg" /></a></div>
       </div>
       <div class="middle">
         <div class="search">
@@ -91,6 +97,7 @@
           <ul>
             <li>博文:&nbsp;<span>1</span></li>
             <li>财富:&nbsp;<span>22</span></li>
+            <li>头衔:&nbsp;<span>飞机</span></li>
             <li>访问:&nbsp;<span>333</span></li>
           </ul>
         </div>
@@ -111,15 +118,14 @@
         <h3><a style="background:url(images/shug.png) no-repeat 20px center;">我的书柜</a></h3>
         <div class="st_left_tree"></div>
         <h3><a style="background:url(images/xiaox.png) no-repeat 20px center;">我的消息</a></h3>
-        <ul style="display:block">
-          <li class="active4"><a>写信息</a></li>
-          <li><a>Email</a></li>
+        <ul style="display:block" id="b">
+          <li style="display:none;"><a>写信息</a></li>
           <li><a>通讯录</a></li>
         </ul>
         <h3><a href="#" style="background:url(images/biaoq.png) no-repeat 20px center;">我的标签</a></h3>
         <h3><a style="background:url(images/guanz.png) no-repeat 20px center;">好友关注</a></h3>
-        <ul>
-          <li><a>最关注的人</a></li>
+        <ul id="c">
+          <li><a>我关注的人</a></li>
           <li><a>我的粉丝</a></li>
           <li><a>我的密友</a></li>
         </ul>
@@ -127,7 +133,7 @@
         <ul>
           <li><a>我的阅读历史</a></li>
           <li><a>最近谁来过</a></li>
-          <li><a>最近转藏</a></li>
+          <li><a>最近谁转藏</a></li>
         </ul>
         <h3><a style="background:url(images/guany.png) no-repeat 20px center;">好友动态</a></h3>
         <ul>
@@ -140,6 +146,7 @@
       </div>
     </div>
     <div class="st_right">
+    	<input id="userId" type="hidden" value="${user.id }" />
       <div class="st_right_top">
         <ul>
           <li> <a href="${path }study/blog/new"><img src="images/bj.png" /></a>
@@ -166,151 +173,179 @@
         </ul>
       </div>
       <div class="clear"></div>
-      <div class="st_right_left">
-        <h3>好友来过</h3>
-        <div class="frind0">
-          <ul>
-            <li><a href="shufang.html"><img src="images/tx/01.jpg" /></a></li>
-            <li><a href="shufang.html"><img src="images/tx/02.jpg" /></a></li>
-            <li><a href="shufang.html"><img src="images/tx/03.jpg" /></a></li>
-            <li><a href="shufang.html"><img src="images/tx/04.jpg" /></a></li>
-            <li><a href="shufang.html"><img src="images/tx/05.jpg" /></a></li>
-            <li><a href="shufang.html"><img src="images/tx/06.jpg" /></a></li>
-            <li><a href="shufang.html"><img src="images/tx/07.jpg" /></a></li>
-            <li><a href="shufang.html"><img src="images/tx/08.jpg" /></a></li>
-          </ul>
-        </div>
-        <hr />
-        <div class="wdgc">
-        	<div class="wdgc_tit"><h2>我最欢迎的博文</h2>
-            	<ul>
-                	<li><a>编辑</a></li>
-                    <li><a><img src="images/min.gif" /></a></li>
-                    <li><a><img src="images/close.gif" /></a></li>
+      <div class="b" style="display:block;">
+          <div class="st_right_left">
+            <h3>好友来过</h3>
+            <div class="frind0">
+              <ul>
+                <li><a href="shufang.html"><img src="images/tx/01.jpg" /></a></li>
+                <li><a href="shufang.html"><img src="images/tx/02.jpg" /></a></li>
+                <li><a href="shufang.html"><img src="images/tx/03.jpg" /></a></li>
+                <li><a href="shufang.html"><img src="images/tx/04.jpg" /></a></li>
+                <li><a href="shufang.html"><img src="images/tx/05.jpg" /></a></li>
+                <li><a href="shufang.html"><img src="images/tx/06.jpg" /></a></li>
+                <li><a href="shufang.html"><img src="images/tx/07.jpg" /></a></li>
+                <li><a href="shufang.html"><img src="images/tx/08.jpg" /></a></li>
+              </ul>
+            </div>
+            <hr />
+            <div class="wdgc">
+                <div class="wdgc_tit"><h2>我最欢迎的博文</h2>
+                    <ul>
+                        <li><a>编辑</a></li>
+                        <li><a><img src="images/min.gif" /></a></li>
+                        <li><a><img src="images/close.gif" /></a></li>
+                    </ul>
+                </div>
+                <ul class="nr">
+                    <li>1、<a href="liulan.html">对自己的文章进行分类管理</a></li>
+                    <li>2、<a href="liulan.html">对自己的文章进行分类管理</a></li>
+                    <li>3、<a href="liulan.html">对自己的文章进行分类管理</a></li>
+                    <li>4、<a href="liulan.html">对自己的文章进行分类管理</a></li>
+                    <li>5、<a href="liulan.html">对自己的文章进行分类管理</a></li>
+                    <li>6、<a href="liulan.html">对自己的文章进行分类管理</a></li>
                 </ul>
             </div>
-            <ul class="nr">
-            	<li>1、<a href="liulan.html">对自己的文章进行分类管理</a></li>
-                <li>2、<a href="liulan.html">对自己的文章进行分类管理</a></li>
-                <li>3、<a href="liulan.html">对自己的文章进行分类管理</a></li>
-                <li>4、<a href="liulan.html">对自己的文章进行分类管理</a></li>
-                <li>5、<a href="liulan.html">对自己的文章进行分类管理</a></li>
-                <li>6、<a href="liulan.html">对自己的文章进行分类管理</a></li>
-            </ul>
-        </div>
-        <div class="clear"></div>
-        <div class="gltj">
-        	<div class="gltj_tit"><h2>我推荐的博文</h2>
-            	<ul>
-                	<li><a>编辑</a></li>
-                    <li><a href="#"><img src="images/min.gif" /></a></li>
-                    <li><a href="#"><img src="images/close.gif" /></a></li>
-                </ul>
-            </div>
-            <ul class="nr2">
-            	<li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
-                <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
-                <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
-                <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
-                <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
-                <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
-                <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
-            </ul>
-        </div>
-        <div class="gyfk">
-        	<div class="gyfk_tit"><h2>标题</h2>
-            	<ul>
-                	<li><a>编辑</a></li>
-                    <li><a href="#"><img src="images/min.gif" /></a></li>
-                    <li><a href="#"><img src="images/close.gif" /></a></li>
-                </ul>
-            </div>
-            <script type="text/javascript">
-            	 $(function(){
-					$(".nr3").children().each(function(index,dom){
-						$($(this).children()[0]).click(function(){
-							$("#nr4").children().each(function(i, d) {
-                                if(index == i){
-									$(this).css("display","block");									
-								}else{
-									$(this).css("display","none");	
-								}
-                            });
-						})
-					});
-				})
-            </script>
-            <ul class="nr3">
-            	<li><a>全部</a>|</li>
-                <li><a>转发</a>|</li>
-                <li><a>回复</a>|</li>
-                <li><a>转藏</a>|</li>
-                <li><a>评论</a>|</li>
-                <li><a>关注</a></li>
-            </ul>
             <div class="clear"></div>
-            <div class="nr_con">
-            	<ul id="nr4">
-                	<li style="display:block">还没有馆友转藏或评论的我文章！</li>
-                    <li>还没有馆友转发我的随笔！</li>
-                    <li>还没有馆友回复我的随笔！</li>
-                    <li>还没有馆友转藏我的文章！</li>
-                    <li>还没有馆友对我的文章发表评论！</li>
-                    <li>还没有馆友关注我！</li>
+            <div class="gltj">
+                <div class="gltj_tit"><h2>我推荐的博文</h2>
+                    <ul>
+                        <li><a>编辑</a></li>
+                        <li><a href="#"><img src="images/min.gif" /></a></li>
+                        <li><a href="#"><img src="images/close.gif" /></a></li>
+                    </ul>
+                </div>
+                <ul class="nr2">
+                    <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
+                    <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
+                    <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
+                    <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
+                    <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
+                    <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
+                    <li><div><a href="liulan.html">对自己的文章进行分类管理</a></div><a>张三李四</a><span>2012-12-10</span></li>
                 </ul>
             </div>
-        </div>
-       
+            <div class="gyfk">
+                <div class="gyfk_tit"><h2>标题</h2>
+                    <ul>
+                        <li><a>编辑</a></li>
+                        <li><a href="#"><img src="images/min.gif" /></a></li>
+                        <li><a href="#"><img src="images/close.gif" /></a></li>
+                    </ul>
+                </div>
+                <ul class="nr3">
+                    <li><a>全部</a>|</li>
+                    <li><a>转发</a>|</li>
+                    <li><a>回复</a>|</li>
+                    <li><a>转藏</a>|</li>
+                    <li><a>评论</a>|</li>
+                    <li><a>关注</a></li>
+                </ul>
+                <div class="clear"></div>
+                <div class="nr_con">
+                    <ul id="nr4">
+                        <li style="display:block">还没有馆友转藏或评论的我文章！</li>
+                        <li>还没有馆友转发我的随笔！</li>
+                        <li>还没有馆友回复我的随笔！</li>
+                        <li>还没有馆友转藏我的文章！</li>
+                        <li>还没有馆友对我的文章发表评论！</li>
+                        <li>还没有馆友关注我！</li>
+                    </ul>
+                </div>
+            </div>
+           
+          </div>
+          <div class="st_right_right">
+            <div class="tjzt">
+              <h3>推荐主题</h3>
+              <ul>
+                <li><a href="zhutizhanshi.html">英文、中之间的文本、网页翻译。</a></li>
+                <li><a href="zhutizhanshi.html">英文、中之间的文本、网页翻译。</a></li>
+                <li><a href="zhutizhanshi.html">英文、中文间的文本、网页翻译</a></li>
+                <li><a href="zhutizhanshi.html">英文、中文之间的文本、网页翻</a></li>
+                <li><a href="zhutizhanshi.html">英文、中文间的文本、网页翻译</a></li>
+                <li><a href="zhutizhanshi.html">英文、中文和文之间的文本、译。</a></li>
+                <li><a href="zhutizhanshi.html">英文、中文和日文之间的文本。</a></li>
+              </ul>
+            </div>
+            <div class="tjhd">
+              <h3>推荐活动</h3>
+              <ul>
+                <li><a href="zhutizhanshi.html">英中文和文之间的文本、网页翻译</a></li>
+                <li><a href="zhutizhanshi.html">英文、文文之间的文本、网页翻译</a></li>
+                <li><a href="zhutizhanshi.html">英文文和文之间的文本、网页翻</a></li>
+                <li><a href="zhutizhanshi.html">英文、日文之间的文本、网页翻译</a></li>
+                <li><a href="zhutizhanshi.html">英文、中文日文之间的文本、译。</a></li>
+                <li><a href="zhutizhanshi.html">英文文和文之间的文本、网页翻译</a></li>
+              </ul>
+            </div>
+            <div class="tjsf">
+              <h3>推荐书房</h3>
+              <ul>
+                <li> <a href="shufang.html"><img src="images/tx/01.jpg" /></a>
+                  <p><a href="shufang.html">张三李四</a></p>
+                </li>
+                <li> <a href="shufang.html"><img src="images/tx/02.jpg" /></a>
+                  <p><a href="shufang.html">张三李四</a></p>
+                </li>
+                <li> <a href="shufang.html"><img src="images/tx/03.jpg" /></a>
+                  <p><a href="shufang.html">张三李四</a></p>
+                </li>
+                <li> <a href="shufang.html"><img src="images/tx/04.jpg" /></a>
+                  <p><a href="shufang.html">张三李四</a></p>
+                </li>
+                <li> <a href="shufang.html"><img src="images/tx/05.jpg" /></a>
+                  <p><a href="shufang.html">张三李四</a></p>
+                </li>
+                <li> <a href="shufang.html"><img src="images/tx/02.jpg" /></a>
+                  <p><a href="shufang.html">张三李四</a></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="clear"></div>
       </div>
-      <div class="st_right_right">
-        <div class="tjzt">
-          <h3>推荐主题</h3>
-          <ul>
-            <li><a href="zhutizhanshi.html">英文、中之间的文本、网页翻译。</a></li>
-            <li><a href="zhutizhanshi.html">英文、中之间的文本、网页翻译。</a></li>
-            <li><a href="zhutizhanshi.html">英文、中文间的文本、网页翻译</a></li>
-            <li><a href="zhutizhanshi.html">英文、中文之间的文本、网页翻</a></li>
-            <li><a href="zhutizhanshi.html">英文、中文间的文本、网页翻译</a></li>
-            <li><a href="zhutizhanshi.html">英文、中文和文之间的文本、译。</a></li>
-            <li><a href="zhutizhanshi.html">英文、中文和日文之间的文本。</a></li>
-          </ul>
-        </div>
-        <div class="tjhd">
-          <h3>推荐活动</h3>
-          <ul>
-            <li><a href="zhutizhanshi.html">英中文和文之间的文本、网页翻译</a></li>
-            <li><a href="zhutizhanshi.html">英文、文文之间的文本、网页翻译</a></li>
-            <li><a href="zhutizhanshi.html">英文文和文之间的文本、网页翻</a></li>
-            <li><a href="zhutizhanshi.html">英文、日文之间的文本、网页翻译</a></li>
-            <li><a href="zhutizhanshi.html">英文、中文日文之间的文本、译。</a></li>
-            <li><a href="zhutizhanshi.html">英文文和文之间的文本、网页翻译</a></li>
-          </ul>
-        </div>
-        <div class="tjsf">
-          <h3>推荐书房</h3>
-          <ul>
-            <li> <a href="shufang.html"><img src="images/tx/01.jpg" /></a>
-              <p><a href="shufang.html">张三李四</a></p>
-            </li>
-            <li> <a href="shufang.html"><img src="images/tx/02.jpg" /></a>
-              <p><a href="shufang.html">张三李四</a></p>
-            </li>
-            <li> <a href="shufang.html"><img src="images/tx/03.jpg" /></a>
-              <p><a href="shufang.html">张三李四</a></p>
-            </li>
-            <li> <a href="shufang.html"><img src="images/tx/04.jpg" /></a>
-              <p><a href="shufang.html">张三李四</a></p>
-            </li>
-            <li> <a href="shufang.html"><img src="images/tx/05.jpg" /></a>
-              <p><a href="shufang.html">张三李四</a></p>
-            </li>
-            <li> <a href="shufang.html"><img src="images/tx/02.jpg" /></a>
-              <p><a href="shufang.html">张三李四</a></p>
-            </li>
-          </ul>
-        </div>
+      <div id="shortMsg" class="b" style=" height:538px;"> </div>
+      <div id="myAttention" class="c">我关注的人
       </div>
-    </div>
+      <div id="myFans" class="c">我的粉丝</div>
+      <div id="myTag" class="c"></div>
+      <div id="myFriend" class="c">
+      	<div class="c3">
+            <div class="tx2">我有一个密友(<b>添加</b>新的密友,<b>删除</b>现在的密友)</div>
+            <h2>共有5个好友</h2>
+            <ul>
+              <li><a href="#"><img src="images/tx/01.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/02.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/03.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/04.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/05.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/06.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/07.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/08.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/09.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+              <li><a href="#"><img src="images/tx/010.jpg" /></a><br /><span><a href="#">张三李四</a></span></li>
+            </ul>
+        </div>
+        <div class="tjmy" class="tjsc">
+       	  <div class="clo"><a href="#">X</a></div>
+        	<p>密友申请被对方接受后,你们彼此的好友名录中会出现对方。</p><br />
+            <h2>请输入好友昵称：</h2>
+            <input type="text" />
+            <h2>想对密友说的话：</h2>
+            <textarea></textarea>
+            <div class="tjmy_btn"><img src="images/qd1.png" />&nbsp;&nbsp;<img src="images/qx1.png" /></div>
+        </div>
+        <div class="scmy" class="tjsc">
+        	<div class="clo"><a href="#">X</a></div>
+        	<h2>请输入好友昵称：</h2>
+            <input type="text" />
+             <div class="tjmy_btn"><img src="images/qd1.png" />&nbsp;&nbsp;<img src="images/qx1.png" /></div>
+        </div>
+        <script type="text/javascript">
+        </script>
+      </div>
+    </div> 
   </div>
   <div class="clear"></div>
   <div class="foot">

@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>相册1</title>
+<link href="css/globel.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/obj.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div class="warp">
+<div class="av">
+	<div class="top">
+    <div class="right">
+          <div class="top_tool">
+            <ul>
+              <li id="tool_1"><a>装扮</a></li>
+              <li id="tool_2"><a>设置</a></li>
+              <li id="tool_3"><a>消息
+                <ul id="xinxi">
+                  <li><label><a href="http://www.baidu.com" target="_blank">查看信箱</a></label>(<span>22</span>)</li>
+                  <li><a>查看私信</a>(<span>33</span>)</li>
+                  <li><a>系统通知</a>(<span>44</span>)</li>
+                </ul>
+                </a></li>
+              <li id="tool_4"><a href="#">登录</a></li>
+              <li id="tool_5"><a href="#">退出</a></li>
+            </ul>
+          </div>
+          <div class="clear"></div>
+        </div>
+    </div>
+</div>
+    <div class="head">
+      <div class="top">
+        <div class="left">
+          <div class="logo"><a hr1ef="http://www.baidu.com"><img src="images/logo.jpg" /></a></div>
+        </div>
+        <div class="middle">
+            <div class="search">
+                <input type="text" value="输入关键字" class="focus1" />
+                <span><input type="button" value="搜索" /></span><br />
+                <div class="clear"></div>
+                <ul>
+                  <li><a href="#">新闻</a></li>
+                  <li><a>奥运</a></li>
+                  <li><a>音乐</a></li>
+                  <li><a>视频</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>交友</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>交友</a></li>
+                  <li><a>美图</a></li>
+                  <li><a>奥运</a></li>
+                  <li><a>音乐</a></li>
+                  <li><a>视频</a></li>
+                  <li><a>美图</a></li>
+                </ul>
+              </div>
+        </div> 
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="nav">
+        <ul>
+          <li><a href="index.html">首 页</a>|</li>
+          <li><a href="yls.html">社区阅览室</a>|</li>
+          <li><a href="bwdr.html">博文达人</a>|</li>
+          <li><a href="shufang.html" class="active">我的书房</a>|</li>
+          <li><a href="quanzi.html">圈 子</a>|</li>
+          <li><a href="zyzx.html">企业资源中心</a></li>
+        </ul>
+      </div>
+<style type="text/css">
+.user_font {color:#090;font-size:12px;}
+.space_width {width:10px;}	
+.top_font {color:#D1D1D1;font-size:12px;}
+.content_font {font-size:12px;}
+.title_font {font-size:14px;}
+.tr_height {height:30px;}
+.td_bottom { border-bottom:1px dashed #c2c2c2;} 
+.td_song_font {border-bottom:1px dashed #c2c2c2;color:#4682B4;}
+.td_song_font2 {color:#4682B4;}
+.p_div_title {line-height:25px;background-color:#CAE5E8;padding-left:5px;font-size:14px;}
+.v_div {height:50px;width:100px;float:left;font-size:12px;}
+.v_div a { text-decoration:none;}
+
+.li_font {font-size:12px;}
+.li_font a {text-decoration:none;}
+.li_font a:active {color:red;text-decoration:underline;}
+.li_font a:hover {color:red;text-decoration:underline;}
+.li_font a:visited {text-decoration:none;}
+
+.revacepl {background:url(images/revacepl.gif); border-style:none; width:72px; height:23px; background-repeat:no-repeat;}
+.a_no_de {font-size:12px;text-decoration:none;}
+.a_no_de:active {color:red;text-decoration:underline;}
+.a_no_de:hover {color:red;text-decoration:underline;}
+.a_no_de:visited {text-decoration:none;}
+.a_no_de2 {font-size:12px;text-decoration:none;color:#090;}
+.a_no_de2:active {color:red;text-decoration:underline;}
+.a_no_de2:hover {color:red;text-decoration:underline;}
+.a_no_de2:visited {text-decoration:none;}
+</style>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script language="javascript">
+	$(document).ready(function() {
+        $('#open_more_comment').click(function(){
+			var hei = $('#comment').css("height").toString().replace("px","");
+			var h = parseInt(hei) + 70;
+			$('#open_more_comment').css("display","none");
+			$('#comment').css("height",h+"px");
+			$('#more_comment').css("display","block");	
+		});
+		$("#comment_id").css("color","#ccc");
+		$("#comment_id").focus(function(){
+			if($(this).val() == '发表评论'){
+				$(this).val('');
+			};
+		});
+		$("#comment_id").blur(function(){
+			if($(this).val() == ''){
+				$(this).val('发表评论');
+			};
+		});
+    });
+</script>
+
+   <div style="width:900px;height:auto;margin:auto;">
+	<div style="width:900px;height:20px;margin:auto;">
+    	<a href="#" class="a_no_de2">五味品</a><span class="top_font">&nbsp;&nbsp;收藏于&nbsp;&nbsp;2012-08-23&nbsp;&nbsp;阅读数：2&nbsp;&nbsp;被转载：0&nbsp;&nbsp;公众公开&nbsp;&nbsp;</span><a href="#" class="a_no_de">原文来源</a>
+    </div>
+    <div style="height:40px;" class="title_font">
+    	<span >摘要：xxxxxxxxxxxxx</span><br/>
+        <span >描述：xxxxxxxx</span>
+    </div>
+    <div style="width:100%;height:310px;border:1px solid;border-color:#C3DEEC;">
+    	<div class="p_div_title">风景</div>
+    	<div class="content_font">
+        	<img src="images/xiangce1.jpg" width="900px" height="285px"/>
+        </div>
+    </div>
+    <div style="line-height:25px;width:100%;height:120px;border:1px solid;border-color:#C3DEEC;">
+    <div class="p_div_title">相关相册：</div>
+     	<ul style="padding-left:20px;padding-top:10px;">
+        	<li style="float:left;width:50%;" class="li_font"><a href="#">世界落差最大瀑布所在地卡奈伊玛国家公园</a></li>
+            <li style="float:left;width:50%;" class="li_font"><a href="#">委内瑞拉：天使瀑布</a></li>
+        </ul>	
+
+        <ul style="padding-left:20px;">
+        	<li style="float:left;width:50%;" class="li_font"><a href="#">世界50大美景之委内瑞拉天使瀑布</a></li>
+            <li style="float:left;width:50%;" class="li_font"><a href="#">世界上最高的瀑布--委内瑞拉的安赫尔瀑布</a></li>
+        </ul>	
+        
+        <div style="float:right;"><a href="#" class="a_no_de2">查看更多>></a></div>
+	</div>
+    <div id="comment" style="line-height:25px;width:100%;height:130px;border:1px solid;border-color:#C3DEEC;">
+    	<!--<div style="background-color:#CAE5E8;">文章评论：（共1条）<a href="#">我想发表评论</a><span style="width:100px;">&nbsp;</span><img src="images/xx.png" width="65px" height="14px"/></div>-->
+        <table width="100%" height="25px" border="0" cellpadding="0" cellspacing="0" style="background-color:#CAE5E8;" class="title_font">
+        	<tr>
+            	<td width="60%" align="left" style="padding-left:5px;">文章评论：（共<font color="#EC870E">1</font>条）<a href="#" class="a_no_de">我想发表评论</a></td>
+                <td width="40%" align="left">评分：<img src="images/xx.png" width="65px" height="14px"/>10(60人评价)</td>
+            </tr>
+        </table>
+        <table width="100%" height="70px" border="0" cellpadding="0" cellspacing="0" class="title_font">
+        	<tr>
+            	<td width="20%" align="left" style="padding-left:5px;"><img src="images/005_50.gif" width="50px" height="50px"/>&nbsp;</td>
+                <td width="60%" align="left">
+                	<a href="#" class="a_no_de2">御临斋</a>&nbsp;&nbsp;<span class="top_font">2012-08-24 13:44:20</span><br/><span class="content_font">转载了，谢谢！</span><br/><img src="images/jiantouleft.gif" width="9px" height="11px"/><a href="#" class="content_font a_no_de">回复</a><br/><a href="#" id="open_more_comment" class="a_no_de2">查看更多>></a>
+                </td>
+                <td width="20%" align="left" valign="center">&nbsp;<font color="#EC870E">0</font>&nbsp;<a href="#"><img src="images/zhanyes.gif" width="17px" height="19px" border="0"/></a><a href="#"><img src="images/zhanno.gif" width="17px" height="19px" border="0"/></a>&nbsp;<span class="user_font">0</span>&nbsp;</td>
+            </tr>
+        </table>
+        <div style="border-bottom:1px dashed #c2c2c2;"></div>
+     	<!-- moreComment-->
+        <table id="more_comment" width="100%" height="70px" border="0" cellpadding="0" cellspacing="0" class="title_font" style="display:none;">
+        	<tr>
+            	<td width="20%" align="left" style="padding-left:5px;"><img src="images/005_50.gif" width="50px" height="50px"/>&nbsp;</td>
+                <td width="60%" align="left">
+                	<a href="#" class="a_no_de2">御临斋</a>&nbsp;&nbsp;<span class="top_font">2012-08-24 13:44:20</span><br/><span class="content_font">转载了，谢谢！</span><br/><img src="images/jiantouleft.gif" width="9px" height="11px"/><a href="#" class="content_font a_no_de">回复</a><br/>
+                </td>
+                <td width="20%" align="left" valign="center">&nbsp;<font color="#EC870E">0</font>&nbsp;<a href="#"><img src="images/zhanyes.gif" width="17px" height="19px" border="0"/></a><a href="#"><img src="images/zhanno.gif" width="17px" height="19px" border="0"/></a>&nbsp;<span class="user_font">0</span>&nbsp;</td>
+            </tr>
+        </table>
+         <div style="border-bottom:1px dashed #c2c2c2;"></div>
+        
+        
+    </div>
+     <div style="line-height:25px;width:100%;height:155px;border:1px solid;border-color:#C3DEEC;">
+    	<!--<div style="background-color:#CAE5E8;">文章评论：（共1条）<a href="#">我想发表评论</a><span style="width:100px;">&nbsp;</span><img src="images/xx.png" width="65px" height="14px"/></div>-->
+        <table width="100%" height="25px" border="0" cellpadding="0" cellspacing="0" style="background-color:#CAE5E8;" class="title_font">
+        	<tr>
+            	<td align="left" style="padding-left:5px;">发表评论：</td>
+            </tr>
+        </table>
+        <table width="100%" height="125px" border="0" cellpadding="0" cellspacing="5">
+        	<tr>
+            	<td width="15%">&nbsp;</td>
+            	<td width="70%" align="right" style="padding-left:10px;"><textarea name="comment" cols="80" rows="5" id="comment_id">发表评论</textarea></td>
+                <td width="15%" align="left">&nbsp;</td>
+            </tr>
+            <tr>
+            	<td width="15%">&nbsp;</td>
+            	<td align="right"><input name="button" type="button" class="revacepl"></td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+     
+    </div>
+</div>
+
+    <div class="clear"></div>
+    <div class="foot">
+    	<div class="nav_btm">
+        	<ul>
+            	<li><a href="#">服务条款</a>|</li>
+                <li><a href="#">设博文馆为首页</a>|</li>
+                <li><a href="#">留言交流</a>|</li>
+                <li><a href="#">联系我们</a>|</li>
+                <li><a href="#">友情链接</a>|</li>
+                <li><a href="#">管理平台</a></li>
+            </ul>
+        </div>
+        <div class="banq">
+        	<div class="lin1">主办单位：福建省民政厅 中国电信福建公司</div>
+            <div class="lin2">[电信及增值业务经营许可证：闽ICP备11020745号]</div>
+            <div class="lin3">Copyright© 2007—2011 中国电信福建分公司 版权所有互联网违法和不良信息举报中心</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

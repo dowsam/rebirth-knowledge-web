@@ -19,7 +19,7 @@ function addTag(name,id){
 	var tag = $("<li></li>");
 	tag.append(name);
 	tag.append("<input type=\"hidden\" name=\"addedTag\" value=\""+id+"\" />");
-	tag.append("<a href=\"#\" onclick=\"removeTag('this')\"><em>-</em></a>");
+	tag.append("<a href=\"#\" onclick=\"removeTag(this)\"><em>-</em></a>");
 	tag.appendTo("#addedTag");
 }
 
